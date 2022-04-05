@@ -51,3 +51,36 @@ print(math.huge)
 print("\n")
 print(math.deg(6.2831853071796))
 print(math.rad(360))
+
+-- 随机数
+print("\n")
+--math.randomseed(os.time())
+for i = 1, 10 do
+    print(math.random(5))
+end
+
+print("\n")
+x = 2 ^ 52 + 1
+print(string.format("大数字：%f", x))
+print(string.format("大数字+0.5 floor ：%f", math.floor(x + 0.5)))
+-- 处理 大数字 四舍五入
+function round(x)
+    local f = math.floor(x)
+    if x == f then
+        return f
+    else
+        return math.floor(x + 0.5)
+    end
+end
+print("大数字 round: ", round(x))
+
+-- 无偏取整，取最近的偶数
+function round1(x)
+    local f = math.floor(x)
+    if (x == f) or (x % 2.0 == 0.5) then
+        return f
+    else
+        return math.floor(x + 0.5)
+    end
+end
+print("无偏取整: ", round1(2.5))
