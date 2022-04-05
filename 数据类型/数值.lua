@@ -45,7 +45,10 @@ print(3.1415926 % 0.01)
 
 -- 最大值
 print("\n")
-print(math.huge)
+print("math.huge", math.huge)
+maxInteger = (2 ^ 63 - 1)
+print("2^63", maxInteger, math.type(maxInteger), "math.maxinteger", math.maxinteger, maxInteger == math.maxinteger)
+print("math.minteger", math.mininteger)
 
 -- 三角函数
 print("\n")
@@ -84,3 +87,30 @@ function round1(x)
     end
 end
 print("无偏取整: ", round1(2.5))
+
+-- 整型转浮点数
+print("\n")
+int1 = 3
+print(int1, "type", math.type(int1))
+fl1 = int1 + 0.0
+print(fl1, "type", math.type(fl1))
+bigInt = 2 ^ 60
+bigIntToFloat = bigInt + 0.0
+print(bigInt, " 转为 float:", bigIntToFloat, "是否相同：", (bigInt == bigIntToFloat))
+
+-- 浮点数转整型
+print("\n")
+fl2 = 3.0
+print(fl2, "type", math.type(fl2))
+int2 = fl2 | 0
+print(int2, "type", math.type(int2))
+-- 有小数会爆出 number has no integer representation
+--print("有小数：", (3.2 | 0))
+-- 超出范围爆出 number has no integer representation
+--print("超出范围：", (2 ^ 64 | 0))
+-- 数值没有用整型 bad argument #2 to 'random' (number has no integer representation)
+--print(math.random(1, 3.5))
+print(math.tointeger(-258.0))
+print(math.tointeger(2 ^ 32))
+print(math.tointeger(258.01))
+print(math.tointeger(2 ^ 64))
