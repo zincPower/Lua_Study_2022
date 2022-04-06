@@ -51,3 +51,32 @@ end
 -- 不是序列，获取序列长度是无用的
 sequence2 = { a = "jiang" }
 print(#sequence2)
+
+print("")
+print("遍历 table ")
+-- 普通 table 遍历，因底层实现问题，pairs 不会确保顺序，可能每次都不同
+print("普通 table 遍历")
+table5 = { 10, print, x = 12, k = "hi" }
+for k, v in pairs(table5) do
+    print(k, "-->", v)
+end
+-- 列表 table 遍历，ipairs 会确保顺序进行
+print("列表 table 遍历")
+table6 = { 10, print, 12, "hi" }
+for i, v in ipairs(table6) do
+    print(i, "-->", v)
+end
+-- 序列数值遍历
+print("序列数值遍历")
+for i = 1, #table6 do
+    print(i, "-->", table6[i])
+end
+
+print("")
+print("模拟安全操作")
+----- 安全操作 -------
+E = {}
+--company = { director = { address = { zipcode = "10080" } } }
+company = { }
+zip = (((company or E).director or E).address or E).zipcode
+print(zip)
