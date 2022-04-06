@@ -54,7 +54,7 @@ print(#sequence2)
 
 print("")
 print("遍历 table ")
--- 普通 table 遍历，因底层实现问题，pairs 不会确保顺序，可能每次都不同
+-- 普通 table 遍历，因底层实现问题，pairs 不会确保顺序，可能每次遍历结果都不同，但每个元素一定会出现一次
 print("普通 table 遍历")
 table5 = { 10, print, x = 12, k = "hi" }
 for k, v in pairs(table5) do
@@ -80,3 +80,42 @@ E = {}
 company = { }
 zip = (((company or E).director or E).address or E).zipcode
 print(zip)
+
+function showTable(table)
+    list = ""
+    for i, v in ipairs(table) do
+        list = list .. "[" .. i .. "]=" .. v .. ", "
+    end
+    print(list)
+end
+
+print("")
+print("表标准库操作---列表和序列")
+----- 表标准库操作 -----
+table7 = { 10, 20, 30 }
+showTable(table7)
+table.insert(table7, 2, 909)
+showTable(table7)
+-- 如果不设置下标参数，则插在末尾
+table.insert(table7, 50)
+showTable(table7)
+table.remove(table7, 3)
+showTable(table7)
+-- 如果不设置下标参数，则移除末尾
+table.remove(table7)
+showTable(table7)
+-- move 模拟在开头插入元素
+table.move(table7, 1, #table7, 2)
+table7[1] = 0
+showTable(table7)
+-- move 模拟删除第一个元素，记得要将末尾进行 nil 删除，否则最后元素还存在
+table.move(table7, 2, #table7, 1)
+table7[#table7] = nil
+showTable(table7)
+-- move 将表 a 拷贝到表 b , 可以通过 (#b + 1) 将元素接到表 b 末尾
+table8 = { 20, 20, 30, 40, 50 }
+table.move(table7, 1, #table7, #table8 + 1, table8)
+showTable(table7)
+showTable(table8)
+
+
