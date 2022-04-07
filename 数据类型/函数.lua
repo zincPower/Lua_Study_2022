@@ -11,6 +11,7 @@ print "function"
 -- 等同于 type({})
 print(type {})
 
+--- 默认参数
 globalCounter = 0;
 function initGlobal(n)
     n = n or 1
@@ -20,3 +21,118 @@ initGlobal()
 print(globalCounter)
 initGlobal(10086)
 print(globalCounter)
+
+print("")
+print("多返回值")
+--- 多返回值
+function f0()
+    return
+end
+function f1()
+    return "a"
+end
+function f2()
+    return "a", 1
+end
+function params(param1, param2, param3)
+    print("params:" .. param1 .. "," .. param2 .. ",", param3)
+end
+function showTable(table)
+    list = ""
+    for i, v in ipairs(table) do
+        list = list .. "[" .. i .. "]=" .. v .. ", "
+    end
+    print(list)
+end
+-- 多余的返回值会被舍弃
+value = f2()
+print(value)
+-- 按顺序进行赋值，多余的返回值会被舍弃，少的则会用 nil
+value1, value2, value3 = 10, f2()
+print(value1, value2, value3)
+value4, value5, value6, value7 = 10, f2()
+print(value4, value5, value6, value7)
+-- 如果多值返回不是最后一个表达式，则只会使用一个，这个原理同样适用于函数调用入参
+value8, value9, value10 = f2(), 10
+print(value8, value9, value10)
+params(f2())
+params(f2(), 10000)
+params(10001, f2())
+-- 多值返回和其他的运算操作只会使用第一个返回值
+print(f2() .. 1)
+-- 可以作为表的构造器，但也遵循同样的规则，只有作为最后一个表达式，才会使用所有返回值
+t1 = { f2() }
+t2 = { f2(), "jiang pengyong" }
+showTable(t1)
+showTable(t2)
+-- 使用括号，强制只返回一个值
+print((f2()))
+
+print("")
+print("可变长参数函数")
+---- 可变长参数函数
+function add(...)
+    local total = 0
+    -- ... 代表了可变长参数，用 {} 装载只是表达了将其转为列表
+    -- 值得注意的是，这里每次调用都会创建一个临时的表
+    -- _ 可以避免无用参数取名
+    for _, v in ipairs { ... } do
+        total = total + v;
+    end
+    return total
+end
+print(add(3, 4, 10, 25, 12))
+-- ... 和多值返回类似，可以用多值返回的所有操作
+-- 多的会被舍弃，少的用 nil 补充
+function foo(...)
+    local a, b, c = ...
+    print(a, b, c)
+end
+foo("a")
+foo("a", "b")
+foo("a", "b", "c")
+foo("a", "b", "c", "d")
+-- 可以用这一特性进行跟踪参数
+-- 和 kotlin 、 java 一样，固定参数要放在可变长参数前
+function showParams(fun, ...)
+    print(...)
+    return fun(...)
+end
+print(showParams(add, 1, 2, 3, 4, 5))
+-- 如果可变长参数中包含 nil ，则会形成空洞， {...} 不再是有效序列
+-- 可以使用 table.pack 进行保存所有参数，会返回一个 table ，并且其中会有一个 "n" 的键保存参数个数
+-- nil 也会被保存
+function noNils(...)
+    local arg = table.pack(...)
+    print("arg size:" .. arg.n)
+    for i = 1, arg.n do
+        if arg[i] == nil then
+            return false
+        end
+    end
+    return true
+end
+print(noNils(2, 3, nil))
+print(noNils(2, 3))
+print(noNils(2, nil, 3))
+print(noNils())
+print(noNils(nil, nil))
+-- select 作用：
+-- 1. 从 selector 开始的下标（从 1 开始）到序列末尾返回列表
+-- 2. selector 是 # ，返回列表长度
+print(select(1, "a", "b", "c"))
+print(select(2, "a", "b", "c"))
+print(select(3, "a", "b", "c"))
+print(select(4, "a", "b", "c"))
+print(select("#", "a", "b", "c"))
+-- nil 也会被计算
+print(select("#", "a", "b", nil, "c", nil))
+function add1(...)
+    local s = 0
+    for i = 1, select("#", ...) do
+        -- 此处的 select 只会使用 i 下标的值
+        s = s + select(i, ...)
+    end
+    return s
+end
+print(add1(1, 2, 3, 4, 5))
