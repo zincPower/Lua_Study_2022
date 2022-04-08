@@ -82,6 +82,8 @@ function add(...)
     return total
 end
 print(add(3, 4, 10, 25, 12))
+-- 如果存在 nil ， 则后面的就不再继续，因为使用的是 ipairs ， 使用 paris 就不会
+print(add(3, 4, 10, nil, 25, 12))
 -- ... 和多值返回类似，可以用多值返回的所有操作
 -- 多的会被舍弃，少的用 nil 补充
 function foo(...)
@@ -104,7 +106,11 @@ print(showParams(add, 1, 2, 3, 4, 5))
 -- nil 也会被保存
 function noNils(...)
     local arg = table.pack(...)
-    print("arg size:" .. arg.n)
+    local argValue = ""
+    for i = 1, arg.n do
+        argValue = argValue .. (arg[i] or "nil") .. " ,";
+    end
+    print("arg [" .. argValue .. "] size:" .. arg.n)
     for i = 1, arg.n do
         if arg[i] == nil then
             return false
@@ -121,6 +127,7 @@ print(noNils(nil, nil))
 -- 1. 从 selector 开始的下标（从 1 开始）到序列末尾返回列表
 -- 2. selector 是 # ，返回列表长度
 print(select(1, "a", "b", "c"))
+print(select(1, "a", "b", nil, "c"))
 print(select(2, "a", "b", "c"))
 print(select(3, "a", "b", "c"))
 print(select(4, "a", "b", "c"))
@@ -136,3 +143,10 @@ function add1(...)
     return s
 end
 print(add1(1, 2, 3, 4, 5))
+
+-- unpack
+print("")
+print("unpack")
+table1 = { "jiang", "peng", "yong", "xiao" }
+print(table.unpack(table1))
+print(table.unpack(table1, 2, 3))
