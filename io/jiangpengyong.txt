@@ -1,0 +1,4 @@
+jiangpengyong
+jiangpengyong
+sin(3) = 0.14112000805987
+sin(3) = 0.1411
