@@ -145,3 +145,59 @@ do
     -- 关闭 article1
     io.input():close()
 end
+
+-- io.tmpfile
+tmpFile = io.tmpfile()
+tmpFile:write("jiangpengyong")
+
+-- 将缓存写入文件
+io.flush()
+io.output():flush()
+
+-- 设置文件
+file = io.open(rootPath .. "outputBuf.txt", "w")
+-- 设置缓存模式
+file:setvbuf("no")
+file:close()
+
+do
+    file = io.open(rootPath .. "一件小事.txt", "r")
+    file:read("l")
+    print("file:seek(): " .. file:seek())
+    print("file:seek(\"set\"): " .. file:seek("set"))
+    print("file:seek(\"end\"): " .. file:seek("end"))
+    print(file:read("l"))
+end
+
+do
+    -- 重命名
+    io.open(rootPath .. "original.txt", "w")
+    print(os.rename(rootPath .. "original.txt", rootPath .. "rename.txt"))
+end
+
+do
+    -- 删除
+    io.open(rootPath .. "original.txt", "w")
+    os.remove(rootPath .. "original.txt")
+end
+
+do
+    -- 终止程序
+    --os.exit(1, true)
+    -- 获取环境变量，如果没有返回 nil
+    print(os.getenv("HOME"))
+    print(os.getenv("JIANGPENGYONG"))
+    -- 执行系统
+    --print(os.execute("mkdir " .. rootPath .. "createByExecute.txt"))
+end
+
+do
+    local f = io.popen("ls /Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/io", "r")
+    local dir = {}
+    for entry in f:lines() do
+        dir[#dir + 1] = entry
+    end
+    for i, v in ipairs(dir) do
+        print(i, "-->", v)
+    end
+end
