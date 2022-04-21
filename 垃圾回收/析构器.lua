@@ -10,6 +10,7 @@ setmetatable(o, { __gc = function(o)
 end })
 o = nil
 
+print("")
 info = { name = "江澎涌" }
 mt = {
     -- 一定要先占坑，否则后续加的 __gc 会无效
@@ -19,5 +20,22 @@ setmetatable(info, mt)
 mt. __gc = function(o)
     print("info gc", o.name)
 end
-mt = nil
+info = nil
 collectgarbage()
+
+print("")
+print("复苏对象")
+user = { name = "小朋友" }
+mt = {
+    __gc = function(o)
+        print("user gc", o.name)
+        user1 = o
+    end
+}
+setmetatable(user, mt)
+print(user)
+user = nil
+collectgarbage()
+print(user1.name)
+print(user1)
+setmetatable(user1, mt)
