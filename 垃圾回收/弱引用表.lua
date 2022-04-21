@@ -19,3 +19,28 @@ collectgarbage()
 for i, v in pairs(a) do
     print(i, v)
 end
+
+-- 瞬表
+local mem = {}
+setmetatable(mem, { __mode = "k" })
+function factory(o)
+    local res = mem[o]
+    if not res then
+        res = (function()
+            return o
+        end)
+        mem[o] = res
+    end
+    return res
+end
+info = {}
+f = factory(info)
+print(info)
+print(f())
+info = nil
+f = nil
+-- 垃圾回收
+collectgarbage()
+for i, v in pairs(mem) do
+    print(i, v)
+end
