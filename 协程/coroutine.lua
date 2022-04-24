@@ -16,9 +16,58 @@ do
 end
 
 do
+    -- coroutine.yield 挂起
+    print("")
     co2 = coroutine.create(function()
         for i = 1, 10 do
             coroutine.yield(i)
         end
     end)
+    print(coroutine.resume(co2))
+    print(coroutine.resume(co2))
+    print(coroutine.resume(co2))
+    print(coroutine.resume(co2))
+    print(coroutine.resume(co2))
+    print(coroutine.resume(co2))
+    print(coroutine.resume(co2))
+    print(coroutine.resume(co2))
+    print(coroutine.resume(co2))
+    print(coroutine.status(co2))
+    print(coroutine.resume(co2))
+    print(coroutine.resume(co2))
+end
+
+do
+    -- 协程在调用协程
+    print("")
+    co3 = coroutine.create(function()
+        print("run co3")
+        coroutine.resume(co4)
+        print("end co3")
+    end)
+    co4 = coroutine.create(function()
+        print("start co4")
+        print(coroutine.status(co3))
+        print("end co4")
+    end)
+    coroutine.resume(co3)
+end
+
+do
+    print("")
+    -- 协程参数
+    co5 = coroutine.create(function(a, b)
+        return a + b, a - b, "江澎涌"
+    end)
+    print(coroutine.resume(co5, 1, 2))
+end
+
+do
+    co6 = coroutine.create(function(x)
+        print("co6", x)
+        a, b, c, d, e = coroutine.yield()
+        print("co6", a, b, c, d, e)
+    end)
+    coroutine.resume(co6, "hi")
+    coroutine.resume(co6, 4, 5, "江澎涌")
 end
