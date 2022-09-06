@@ -5,30 +5,36 @@
 ---
 
 -- integer 和 float
-print("\n")
+print("integer 和 float 获取类型：")
 print(math.type(3))
 print(math.type(3.0))
+print(math.type(3e10))
 print(type(3))
 print(type(3.0))
 
 -- 十六进制浮点数
-print("\n")
-print(0x0.2)
-print(0x1p-1)
---print(0xa.bp2)
+print("-------------------------")
+print("十六进制：")
+print(0x0.2 .. ":" .. math.type(0x0.2))
+print(0x1p-1 .. ":" .. math.type(0x1p-1))
+--print(0xa.bp2) -- 可用，只是 idea 会识别出错
 
 -- 十六进制浮点数输出
-print("\n")
+print("-------------------------")
+print("十六进制浮点数输出")
 print(string.format("%a", 419))
 print(string.format("%a", 0.1))
 
 -- 数值除法
-print("\n")
+print("-------------------------")
+print("数值除法：")
 print(3 / 2)
 print(3.0 / 2.0)
+print(4 / 2)
 
--- float 除法 运算符
-print("\n")
+-- floor 除法 运算符
+print("-------------------------")
+print("floor 除法，向下取整：")
 print(3 // 2)
 print(3.0 // 2)
 print(6 // 2)
@@ -37,32 +43,71 @@ print(-9 // 2)
 print(1.5 // 0.5)
 
 -- 取模
-print("\n")
+print("-------------------------")
+print("取模：")
+local pi = math.pi
 print(3 % 2)
 print(3.0 % 2)
 print(-15 % 2)
-print(3.1415926 % 0.01)
+print(pi % 0.01)
+print(pi - pi % 0.01)
 
--- 最大值
-print("\n")
-print("math.huge", math.huge)
+print("-------------------------")
+print("幂运算：")
+print(4 ^ (1 / 2))
+print(4 ^ 2)
+print(4 ^ (1 / 3))
+
+print("-------------------------")
+print("运算符：")
+print("江澎涌" == "jiangpengyong")
+print("江澎涌" ~= "jiang")
+print("江澎涌" ~= 28)
+--print("江澎涌" <= 28)
+print(4 == 4.0)
+print(4 <= 4.0)
+
+print("-------------------------")
+print("最大值：")
+print("math.huge", math.huge, math.type(math.huge))
 maxInteger = (2 ^ 63 - 1)
-print("2^63", maxInteger, math.type(maxInteger), "math.maxinteger", math.maxinteger, maxInteger == math.maxinteger)
-print("math.minteger", math.mininteger)
+print("2^63", maxInteger, math.type(maxInteger))
+print("math.maxinteger", math.maxinteger, math.type(math.maxinteger))
+print("maxInteger == math.maxinteger", maxInteger == math.maxinteger)
+print("math.minteger", math.mininteger, math.type(math.mininteger))
 
--- 三角函数
-print("\n")
+print("-------------------------")
+print("三角函数：")
 print(math.deg(6.2831853071796))
 print(math.rad(360))
 
 -- 随机数
-print("\n")
---math.randomseed(os.time())
-for i = 1, 10 do
-    print(math.random(5))
+print("-------------------------")
+print("随机数：")
+math.randomseed(1)
+local r1 = ""
+for _ = 1, 5 do
+    r1 = r1 .. " " .. math.random()
 end
+print("math.random() 十次：", r1)
+local r2 = ""
+for _ = 1, 5 do
+    r2 = r2 .. " " .. math.random(10)
+end
+print("math.random() 十次：", r2)
+local r3 = ""
+for _ = 1, 5 do
+    r3 = r3 .. " " .. math.random(11, 20)
+end
+print("math.random() 十次：", r3)
 
-print("\n")
+print("-------------------------")
+print("取整函数：")
+print(math.floor(3.3))
+print(math.ceil(3.3))
+print(math.modf(3.3))
+print("最近值取整 float(x+0.5) 使用")
+print(string.format("1.3 最近值取整：%f", math.floor(1.3 + 0.5)))
 x = 2 ^ 52 + 1
 print(string.format("大数字：%f", x))
 print(string.format("大数字+0.5 floor ：%f", math.floor(x + 0.5)))
@@ -76,9 +121,10 @@ function round(x)
     end
 end
 print("大数字 round: ", round(x))
+print("大数字 round: ", round(x + 0.5))
 
 -- 无偏取整，取最近的偶数
-function round1(x)
+function unbiasedRound(x)
     local f = math.floor(x)
     if (x == f) or (x % 2.0 == 0.5) then
         return f
@@ -86,7 +132,7 @@ function round1(x)
         return math.floor(x + 0.5)
     end
 end
-print("无偏取整: ", round1(2.5))
+print("无偏取整: ", unbiasedRound(2.5))
 
 -- 整型转浮点数
 print("\n")
