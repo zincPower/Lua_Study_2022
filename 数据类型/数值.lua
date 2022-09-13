@@ -68,13 +68,23 @@ print(4 == 4.0)
 print(4 <= 4.0)
 
 print("-------------------------")
-print("最大值：")
+print("最大值和最小值：")
 print("math.huge", math.huge, math.type(math.huge))
-maxInteger = (2 ^ 63 - 1)
-print("2^63", maxInteger, math.type(maxInteger))
 print("math.maxinteger", math.maxinteger, math.type(math.maxinteger))
+print("math.mininteger", math.mininteger, math.type(math.mininteger))
+--- 指数会转为浮点型，浮点型的范围为 [-2^53, 2^53]， 所以不相等
+maxInteger = (2 ^ 63 - 1)
+print("2^63-1", maxInteger, math.type(maxInteger))
 print("maxInteger == math.maxinteger", maxInteger == math.maxinteger)
-print("math.minteger", math.mininteger, math.type(math.mininteger))
+minInteger = -(2 ^ 63)
+print("2^63", minInteger, math.type(minInteger))
+print("minInteger == math.mininteger", minInteger == math.mininteger)
+maxInteger = 0x7fffffffffffffff
+print("0x7fffffffffffffff", maxInteger, math.type(maxInteger))
+print("maxInteger == math.maxinteger", maxInteger == math.maxinteger)
+minInteger = 0x8000000000000000
+print("0x8000000000000000", minInteger, math.type(minInteger))
+print("minInteger == math.mininteger", minInteger == math.mininteger)
 
 print("-------------------------")
 print("三角函数：")
@@ -108,7 +118,9 @@ print(math.ceil(3.3))
 print(math.modf(3.3))
 print("最近值取整 float(x+0.5) 使用")
 print(string.format("1.3 最近值取整：%f", math.floor(1.3 + 0.5)))
-x = 2 ^ 52 + 1
+--x = 2 ^ 52 + 1
+--local x = 4503599627370497.3
+local x = 4503599627370497.5
 print(string.format("大数字：%f", x))
 print(string.format("大数字+0.5 floor ：%f", math.floor(x + 0.5)))
 -- 处理 大数字 四舍五入
@@ -122,8 +134,9 @@ function round(x)
 end
 print("大数字 round: ", round(x))
 print("大数字 round: ", round(x + 0.5))
+print("2.5 round: ", round(2.5))
 
--- 无偏取整，取最近的偶数
+-- 无偏取整，向最近的偶数取整半个整数
 function unbiasedRound(x)
     local f = math.floor(x)
     if (x == f) or (x % 2.0 == 0.5) then
@@ -132,20 +145,53 @@ function unbiasedRound(x)
         return math.floor(x + 0.5)
     end
 end
-print("无偏取整: ", unbiasedRound(2.5))
+print("-------------------------")
+print("无偏取整:")
+print("2.5: ", unbiasedRound(2.5))
+print("2.9: ", unbiasedRound(2.9))
+print("3.5: ", unbiasedRound(3.5))
+print("-2.5: ", unbiasedRound(-2.5))
+print("-1.5: ", unbiasedRound(-1.5))
 
--- 整型转浮点数
-print("\n")
+print("-------------------------")
+print("整型溢出（回环）：")
+print(math.maxinteger + 1 == math.mininteger)
+print(math.mininteger - 1 == math.maxinteger)
+print(-math.mininteger == math.mininteger)
+print(math.mininteger // -1 == math.mininteger)
+print(math.maxinteger)
+print(0x7fffffffffffffff)
+print(math.mininteger)
+print(0x7fffffffffffffff + 1)
+print(0x8000000000000000)
+
+print("-------------------------")
+print("浮点溢出（取近似值）：")
+print(math.maxinteger + 1.0)
+print(math.maxinteger + 2.0)
+print(math.maxinteger + 1.0 == math.maxinteger + 2.0)
+
+print("-------------------------")
+print("浮点：")
+print("12.7 - 20 + 7.3 = ", 12.7 - 20 + 7.3)
+print("1/7 * 7 = ", (1 / 7) * 7)
+
+print("-------------------------")
+print("整型转浮点数：")
 int1 = 3
 print(int1, "type", math.type(int1))
 fl1 = int1 + 0.0
 print(fl1, "type", math.type(fl1))
-bigInt = 2 ^ 60
+bigInt = 0x0fffffffffffffff
 bigIntToFloat = bigInt + 0.0
 print(bigInt, " 转为 float:", bigIntToFloat, "是否相同：", (bigInt == bigIntToFloat))
+print((9007199254740993 + 0.0) == 9007199254740993)
+print((9007199254740993 + 0.0) == 9007199254740992)
+print((9007199254740992 + 0.0) == 9007199254740992)
+print((9007199254740991 + 0.0) == 9007199254740991)
 
--- 浮点数转整型
-print("\n")
+print("-------------------------")
+print("浮点数转整型")
 fl2 = 3.0
 print(fl2, "type", math.type(fl2))
 int2 = fl2 | 0
@@ -160,3 +206,16 @@ print(math.tointeger(-258.0))
 print(math.tointeger(2 ^ 32))
 print(math.tointeger(258.01))
 print(math.tointeger(2 ^ 64))
+
+print("-------------------------")
+print("检测是否可以转为 int ：")
+function cond2int(x)
+    return math.tointeger(x) or x
+end
+print(cond2int(5.3))
+print(cond2int(10.0))
+
+print("-------------------------")
+print("输出整型：")
+print(3.0)
+print(string.format("%s", 3.0))
