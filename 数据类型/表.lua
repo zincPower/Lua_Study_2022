@@ -4,65 +4,82 @@
 --- DateTime: 2022/4/5 20:49
 ---
 
+
 k = "jiang"
 a = {}
 a[k] = 28
 a[29] = "xiao"
+--a[nil] = "you"  -- table index is nil
+
+print("-------------")
+print("读取元素：")
 print(a[k])
 
--- 使用点获取元素
-print("")
-print("点获取元素")
+print("-------------")
+print("点获取元素：")
 print(a.k)
 print(a.jiang)
 
-print("")
-print("浮点型键")
+print("-------------")
+print("浮点型键：")
 c = {}
 c[2.0] = 10
 print(c[2])
 
-print("")
--- 构造函数
--- 空
+print("-------------")
+print("表构造函数：")
 table1 = {}
+print("table1 length: " .. #table1)
 -- 列表式，键会是从 1 开始往上递增的值
 table2 = { "Jiang", "peng", "yong", }
+print("table2 length: " .. #table2)
 -- 记录式
-table3 = { a = "1", b = "2", c = "3" }
+table3 = { a = "1", b = 20, c = "3" }
+print("table3 length: " .. #table3)
+print(table3.a, table3["b"], table3.c)
+-- 混合使用
+table4 = { name = "江澎涌", { 170, "cm" }, age = 28, { "专业", "软件工程" } }
+print("table4 length: " .. #table4)
+print(table4.name, table4.age, table4[1][1], table4[2][2])
 -- 通用
-table4 = { [-1] = "j", "i", ["a"] = "a", "n", c = "g" }
-print(table4[1])
+table5 = { [-1] = "j", "i", ["a"] = "a", "n", c = "g" }
+print("table5 length: " .. #table5)
+print(table5[1], table5[-1])
 
--- 获取序列长度
+print("-------------")
+print("获取序列长度：")
 sequence = {}
 for i = 1, 10 do
     sequence[i] = i * i;
 end
+print("sequence size（没有空洞）: " .. #sequence)
 -- 如果删除了第十个元素，则长度会变动
 -- 对于存在空洞的列表，序列长度不可靠
---sequence[5] = nil
---sequence[10] = nil
---sequence[11] = 11 * 11
-print("sequence size: " .. #sequence)
+sequence[5] = nil
+print("sequence size（存在空洞，[5] = nil ）: " .. #sequence)
+sequence[10] = nil
+print("sequence size（存在空洞，[10] = nil ）: " .. #sequence)
+sequence[11] = 11 * 11
+print("sequence size（存在空洞，[11] = 11*11 ）: " .. #sequence)
+sequence[10] = 100
+print("sequence size（存在空洞，[100] = 100 ）: " .. #sequence)
 for i = 1, #sequence do
     print(sequence[i])
 end
--- 不是序列，获取序列长度是无用的
-sequence2 = { a = "jiang" }
-print(#sequence2)
 
-print("")
-print("遍历 table ")
+print("-------------")
+print("遍历 table：")
 -- 普通 table 遍历，因底层实现问题，pairs 不会确保顺序，可能每次遍历结果都不同，但每个元素一定会出现一次
-print("普通 table 遍历")
+print("pairs 遍历")
 table5 = { 10, print, x = 12, k = "hi" }
 for k, v in pairs(table5) do
     print(k, "-->", v)
 end
 -- 列表 table 遍历，ipairs 会确保顺序进行
-print("列表 table 遍历")
+print("ipairs 遍历")
 table6 = { 10, print, 12, "hi" }
+table6[10] = 111
+table6["a"] = 100
 for i, v in ipairs(table6) do
     print(i, "-->", v)
 end
@@ -72,14 +89,16 @@ for i = 1, #table6 do
     print(i, "-->", table6[i])
 end
 
-print("")
-print("模拟安全操作")
+print("-------------")
+print("模拟安全操作: ")
 ----- 安全操作 -------
 E = {}
---company = { director = { address = { zipcode = "10080" } } }
-company = { }
-zip = (((company or E).director or E).address or E).zipcode
-print(zip)
+company = nil
+zipcode = (((company or E).director or E).address or E).zipcode or "default"
+print(zipcode)
+company = { director = { address = { zipcode = "10080" } } }
+zipcode = (((company or E).director or E).address or E).zipcode or "default"
+print(zipcode)
 
 function showTable(table)
     list = ""
@@ -93,17 +112,25 @@ print("")
 print("表标准库操作---列表和序列")
 ----- 表标准库操作 -----
 table7 = { 10, 20, 30 }
+
+--- 插入
 showTable(table7)
 table.insert(table7, 2, 909)
 showTable(table7)
 -- 如果不设置下标参数，则插在末尾
 table.insert(table7, 50)
+--table.insert(table7, 10, 100) --  bad argument #2 to 'insert' (position out of bounds)
+--showTable(table7)
+
+--- 移除
 showTable(table7)
-table.remove(table7, 3)
+print(table.remove(table7, 3))
 showTable(table7)
 -- 如果不设置下标参数，则移除末尾
 table.remove(table7)
 showTable(table7)
+--table.remove(table7,10)  -- bad argument #1 to 'remove' (position out of bounds)
+
 -- move 模拟在开头插入元素
 table.move(table7, 1, #table7, 2)
 table7[1] = 0
@@ -118,5 +145,17 @@ table.move(table7, 1, #table7, #table8 + 1, table8)
 showTable(table7)
 showTable(table8)
 
-
-
+table9 = {
+    { name = "xiao peng you", age = 20 },
+    { name = "zinc", age = 27 },
+    { name = "jiang peng yong", age = 28 },
+}
+for i, v in ipairs(table9) do
+    print(i, "-->", v.name, "--", v.age)
+end
+table.sort(table9, function(a, b)
+    return #a.name > #b.name
+end)
+for i, v in ipairs(table9) do
+    print(i, "-->", v.name, "--", v.age)
+end
