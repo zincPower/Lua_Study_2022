@@ -4,6 +4,8 @@
 --- DateTime: 2022/4/6 12:49 PM
 ---
 
+print("---------------------")
+print("省略括号：")
 -- 等同于 print("function")
 print "function"
 -- 等同于 dofile("字符串.lua")
@@ -11,8 +13,36 @@ print "function"
 -- 等同于 type({})
 print(type {})
 
---- 默认参数
-globalCounter = 0;
+print("---------------------")
+print("参数局部变量：")
+function params(a, b)
+    print("函数内部，未改变值：", a, b)
+    a = 10
+    b = 100
+    print("函数内部，未改变值：", a, b)
+end
+local a = 1
+local b = 2
+print("入参前：", a, b)
+params(a, b)
+print("入参后：", a, b)
+
+print("---------------------")
+print("入参不一致：")
+function multiParams(p1, p2, p3, p4, p5)
+    print(p1, p2, p3, p4, p5)
+end
+multiParams()
+multiParams(1)
+multiParams(1, 2)
+multiParams(1, "jiang", 2)
+multiParams(1, "jiang", 2, "peng")
+multiParams(1, "jiang", 2, "peng", 3)
+multiParams(1, "jiang", 2, "peng", 3, "yong")
+
+print("---------------------")
+print("默认参数：")
+local globalCounter = 0
 function initGlobal(n)
     n = n or 1
     globalCounter = globalCounter + n;
@@ -22,17 +52,16 @@ print(globalCounter)
 initGlobal(10086)
 print(globalCounter)
 
-print("")
-print("多返回值")
---- 多返回值
+print("---------------------")
+print("多返回值：")
 function f0()
     return
 end
 function f1()
-    return "a"
+    return "jiang"
 end
 function f2()
-    return "a", 1
+    return "peng yong", 28
 end
 function params(param1, param2, param3)
     print("params:" .. param1 .. "," .. param2 .. ",", param3)
@@ -44,6 +73,7 @@ function showTable(table)
     end
     print(list)
 end
+
 -- 多余的返回值会被舍弃
 value = f2()
 print(value)
@@ -55,8 +85,15 @@ print(value4, value5, value6, value7)
 -- 如果多值返回不是最后一个表达式，则只会使用一个，这个原理同样适用于函数调用入参
 value8, value9, value10 = f2(), 10
 print(value8, value9, value10)
+-- f0 返回 nil 赋值给 value11 ， 而 10001 多了一个参数则被舍弃
+value11, value12 = f0(), 10000, 10001
+print(value11, value12)
+
+-- 唯一一个入参，则会将所有的返回值作为入参
 params(f2())
+-- f2() 虽然返回两个参数，但是因为不是 最后一个参数（也不是唯一一个参数） 所以只会使用第一个返回值，则这里只是入参了两个参数
 params(f2(), 10000)
+-- f2() 最后一个参数，所以会进行多返回值展开，将所有的 f2() 返回值当作入参，所以这里就有三个入参值
 params(10001, f2())
 -- 多值返回和其他的运算操作只会使用第一个返回值
 print(f2() .. 1)
@@ -65,12 +102,11 @@ t1 = { f2() }
 t2 = { f2(), "jiang pengyong" }
 showTable(t1)
 showTable(t2)
--- 使用括号，强制只返回一个值
+-- 使用括号，强制只返回一个值，f2() 则只有第一个返回值被使用，其他的被省略
 print((f2()))
 
-print("")
-print("可变长参数函数")
----- 可变长参数函数
+print("---------------------")
+print("可变长参数函数：")
 function add(...)
     local total = 0
     -- ... 代表了可变长参数，用 {} 装载只是表达了将其转为列表
@@ -88,12 +124,14 @@ print(add(3, 4, 10, nil, 25, 12))
 -- 多的会被舍弃，少的用 nil 补充
 function foo(...)
     local a, b, c = ...
-    print(a, b, c)
+    print(a, b, c, "size: " .. #{ ... })
 end
 foo("a")
 foo("a", "b")
 foo("a", "b", "c")
 foo("a", "b", "c", "d")
+foo("a", "b", nil, "c", "d", nil)
+
 -- 可以用这一特性进行跟踪参数
 -- 和 kotlin 、 java 一样，固定参数要放在可变长参数前
 function showParams(fun, ...)
@@ -101,6 +139,7 @@ function showParams(fun, ...)
     return fun(...)
 end
 print(showParams(add, 1, 2, 3, 4, 5))
+
 -- 如果可变长参数中包含 nil ，则会形成空洞， {...} 不再是有效序列
 -- 可以使用 table.pack 进行保存所有参数，会返回一个 table ，并且其中会有一个 "n" 的键保存参数个数
 -- nil 也会被保存
@@ -123,6 +162,9 @@ print(noNils(2, 3))
 print(noNils(2, nil, 3))
 print(noNils())
 print(noNils(nil, nil))
+
+print("---------------------")
+print("select: ")
 -- select 作用：
 -- 1. 从 selector 开始的下标（从 1 开始）到序列末尾返回列表
 -- 2. selector 是 # ，返回列表长度
@@ -144,9 +186,21 @@ function add1(...)
 end
 print(add1(1, 2, 3, 4, 5))
 
--- unpack
-print("")
+print("---------------------")
 print("unpack")
 table1 = { "jiang", "peng", "yong", "xiao" }
 print(table.unpack(table1))
 print(table.unpack(table1, 2, 3))
+
+f = print
+f(table.unpack(table1))
+
+function unpack(t, i, n)
+    i = i or 1
+    n = n or #t
+    if i <= n then
+        return t[i], unpack(t, i + 1, n)
+    end
+end
+print(unpack(table1))
+print(unpack(table1, 2, 3))
