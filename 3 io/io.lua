@@ -4,7 +4,7 @@
 --- DateTime: 2022/4/8 22:32
 ---
 
-rootPath = "/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/io/"
+rootPath = "/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/3 io/"
 
 print("-----------------")
 print("io.write: ")
@@ -271,7 +271,7 @@ end
 print("-----------------")
 print("io.popen：")
 do
-    local f = io.popen("ls /Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/io", "r")
+    local f = io.popen("ls /Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/3 io", "r")
     local dir = {}
     for entry in f:lines() do
         dir[#dir + 1] = entry
