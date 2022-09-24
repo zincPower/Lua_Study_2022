@@ -6,30 +6,41 @@
 
 rootPath = "/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/io/"
 
--- 输出
-print("io.write")
+print("-----------------")
+print("io.write: ")
 io.output(rootPath .. "jiangpengyong.txt")
+-- 这样性能好，避免不必要的连接动作
 io.write("jiang", "peng", "yong", "\n")
+-- 这样性能差些
 io.write("jiang" .. "peng" .. "yong" .. "\n")
 
--- 格式输出
-print("格式输出")
+print("-----------------")
+print("格式输出: ")
 io.write("sin(3) = ", math.sin(3), "\n")
 -- 如果需要格式化，则需要调用 string.format
 io.write(string.format("sin(3) = %.4f", math.sin(3)), "\n")
 
--- 输入
+print("-----------------")
+print("输入: ")
 io.input(rootPath .. "一件小事.txt")
-line = io.read("l")
-print(line)
-print("")
+print("io.read(\"l\"): ")
+print(io.read("l"))
+print("io.read(\"a\"): ")
 article = io.read("a")
 print(article)
--- 文本替换
+
+print("-----------------")
+print("用 n 读取非数字内容：")
+io.input(rootPath .. "numberAndString.txt")
+print("number: ", io.read("n"), io.read("n"), io.read(1))
+
+print("-----------------")
+print("文本替换: ")
 change = string.gsub(article, "我", "*")
 print(change)
 
-print("")
+print("-----------------")
+print("MIME 可打印字符引用编码: ")
 io.input(rootPath .. "一件小事.txt")
 article = io.read("all")
 print(article)
@@ -38,14 +49,17 @@ print("")
 print(string.gsub(article, "([\128-\255=])", function(c)
     return string.format("=%02X", string.byte(c))
 end))
--- 已经到输入流末尾，进行读取
+
+print("-----------------")
+print("已经到输入流末尾，进行读取: ")
 print("io.read(\"a\"): ", io.read("a"))
 print("io.read(\"l\"): ", io.read("l"))
 print("io.read(\"L\"): ", io.read("L"))
 print("io.read(\"n\"): ", io.read("n"))
 print("io.read(9): ", io.read(9))
 
--- 遍历输入流
+print("-----------------")
+print("遍历输入流: ")
 -- 通过 io.read("L") 进行读取遍历
 io.input(rootPath .. "一件小事.txt")
 io.output(rootPath .. "一件小事-copyByReadLine")
@@ -56,10 +70,11 @@ for count = 1, math.huge do
     end
     io.write(string.format("%6d  ", count), line)
 end
+print("使用 io.lines 读取当前流，不会自动关闭")
 -- 通过 io.lines() 进行读取遍历
 -- do end 只是限定一个作用域
 io.input(rootPath .. "一件小事.txt")
-io.output(rootPath .. "一件小事-copyByLines")
+io.output(rootPath .. "一件小事-copyByLines.txt")
 do
     local count = 0
     for line in io.lines() do
@@ -67,7 +82,36 @@ do
         io.write(string.format("%6d  ", count), line, "\n")
     end
 end
+print("使用 io.lines 读取指定文件，会自动关闭")
+io.output(rootPath .. "numberAndString-copyByLinesFilename.txt")
+do
+    local count = 0
+    for line in io.lines(rootPath .. "number.txt") do
+        count = count + 1
+        io.write(string.format("%6d  ", count), line, "\n")
+    end
+end
+print("io.lines(filename, num)")
+io.output(rootPath .. "numberAndString-copyByLinesBlock.txt")
+do
+    local count = 0
+    for line in io.lines(rootPath .. "number.txt", 2) do
+        count = count + 1
+        io.write(line)
+    end
+end
+print("io.lines(filename, n)")
+io.output(rootPath .. "numberAndString-copyByLinesNumber.txt")
+do
+    local count = 0
+    for line in io.lines(rootPath .. "number.txt", "n") do
+        count = count + 1
+        io.write(line)
+    end
+end
 
+print("-----------------")
+print("排序文件：")
 do
     io.input(rootPath .. "一件小事.txt")
     io.output(rootPath .. "一件小事-copyForSort")
@@ -84,7 +128,8 @@ do
     end
 end
 
--- 使用 io.read(num) 进行拷贝
+print("-----------------")
+print("使用 io.read(num) 进行拷贝：")
 do
     io.input(rootPath .. "一件小事.txt")
     io.output(rootPath .. "一件小事-copyByReadNum")
@@ -97,22 +142,37 @@ do
     end
 end
 
+print("-----------------")
+print("使用 io.read(0) 判断结尾：")
+do
+    io.input(rootPath .. "一件小事.txt")
+    print(io.read(0))
+    --- 将整个文章读取，文件位置就到了末尾
+    io.read("a")
+    print(io.read(0))
+end
+
+print("-----------------")
+print("多值读取：")
 do
     io.input(rootPath .. "number.txt")
     while true do
         n1, n2, n3 = io.read("n", "n", "n")
-        print(n1, n2, n3)
-        if n3 == nil then
+        if n1 == nil then
             break
         end
+        print(n1, n2, n3)
     end
 end
 
--- io.open
+print("-----------------")
+print("io.open：")
+print("打开不存在文件：")
 do
     print(io.open("notExistFile.txt", "r"))
     --local file = assert(io.open("notExistFile.txt", "r"))
 end
+print("打开存在文件：")
 do
     local file = io.open(rootPath .. "一件小事.txt", "r")
     -- 需要使用 冒号
@@ -120,18 +180,19 @@ do
     file:close()
     print(t)
 end
+
+print("-----------------")
+print("预设的三个流句柄：")
 do
-    -- 预设的三个流句柄：
     --readNum = io.stdin:read("n")
     --print("num", readNum)
     --io.stdout:write("jiang", "peng", "yong!!!", "\n")
     --io.stderr:write("error message.")
 end
 
--- 切换输入、输出流
+print("-----------------")
+print("切换输入、输出流：")
 do
-    print("")
-    print("切换输入、输出流")
     io.input(rootPath .. "一件小事.txt", "r")
     -- 获取当前流局柄
     article1 = io.input()
@@ -146,20 +207,25 @@ do
     io.input():close()
 end
 
--- io.tmpfile
+print("-----------------")
+print("io.tmpfile ：")
 tmpFile = io.tmpfile()
 tmpFile:write("jiangpengyong")
 
--- 将缓存写入文件
+print("-----------------")
+print("将缓存写入文件 flush ：")
 io.flush()
 io.output():flush()
 
--- 设置文件
+print("-----------------")
+print("设置文件：")
 file = io.open(rootPath .. "outputBuf.txt", "w")
 -- 设置缓存模式
 file:setvbuf("no")
 file:close()
 
+print("-----------------")
+print("seek ：")
 do
     file = io.open(rootPath .. "一件小事.txt", "r")
     file:read("l")
@@ -169,18 +235,28 @@ do
     print(file:read("l"))
 end
 
+print("-----------------")
+print("rename 重命名：")
 do
+    -- 创建文件
+    local file = io.open(rootPath .. "original.txt", "w")
+    file:write("江澎涌")
+    file:close()
     -- 重命名
-    io.open(rootPath .. "original.txt", "w")
     print(os.rename(rootPath .. "original.txt", rootPath .. "rename.txt"))
 end
 
+print("-----------------")
+print("delete 删除：")
 do
-    -- 删除
-    io.open(rootPath .. "original.txt", "w")
-    os.remove(rootPath .. "original.txt")
+    local file = io.open(rootPath .. "delete.txt", "w")
+    file:write("江澎涌")
+    file:close()
+    print(os.remove(rootPath .. "delete.txt"))
 end
 
+print("-----------------")
+print("系统调用：")
 do
     -- 终止程序
     --os.exit(1, true)
@@ -188,9 +264,12 @@ do
     print(os.getenv("HOME"))
     print(os.getenv("JIANGPENGYONG"))
     -- 执行系统
-    --print(os.execute("mkdir " .. rootPath .. "createByExecute.txt"))
+    --print(os.execute("mkdir " .. rootPath .. "createByExecute"))
+    --print(os.execute("touch " .. rootPath .. "createByExecute/jiangpengyong.txt"))
 end
 
+print("-----------------")
+print("io.popen：")
 do
     local f = io.popen("ls /Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/io", "r")
     local dir = {}
@@ -201,3 +280,13 @@ do
         print(i, "-->", v)
     end
 end
+
+--do
+--    local subject = "test project"
+--    local address = "jpynihao@gmail.com"
+--    local cmd = string.format('mail -s "%s" %s', subject, address)
+--    print(cmd)
+--    local file = io.popen(cmd, "w")
+--    file:write("Test content.--- jiangpengyong")
+--    file:close()
+--end
