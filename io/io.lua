@@ -290,3 +290,11 @@ end
 --    file:write("Test content.--- jiangpengyong")
 --    file:close()
 --end
+
+print("-----------------")
+print("io.type：")
+local file = io.open(rootPath .. "一件小事.txt", "r")
+print(io.type(file))
+file:close()
+print(io.type(file))
+print(io.type("jiangpengyong"))
