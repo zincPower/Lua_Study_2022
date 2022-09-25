@@ -4,6 +4,40 @@
 --- DateTime: 2022/4/10 16:39
 ---
 
+print("Hello world.")
+print("jiang peng yong")
+
+print("---------------")
+print("递归：")
+function fact(number)
+    if number == 0 then
+        return 1
+    end
+    return number * fact(number - 1)
+end
+print("Please enter a number:")
+a = io.read("*n")
+print(fact(a))
+
+print("---------------")
+print("全局变量：")
+print(b)
+b = 10
+print(b)
+b = nil
+print(b)
+
+print("---------------")
+print("type")
+print("nil",type(nil))
+print("boolean",type(true))
+print("number",type(3))
+print("string",type("jiangpengyong"))
+print("function",type(print))
+print("table",type({}))
+
+print("---------------")
+print("local 和 全局变量：")
 -- 这里会无限循环
 --x = 10
 --local i = 1             -- 对于代码段（所在文件）来说是局部的
@@ -22,7 +56,7 @@ end
 print(name)
 
 print("---------------")
-print("local 和 全局变量：")
+print("局部变量转全局变量：")
 age = 20
 do
     local age = age
@@ -32,8 +66,24 @@ do
 end
 print(age)
 
+print("---------------")
+print("repeat")
+--repeat
+--    local i = io.stdin:read("n")
+--    print("input number", i)
+--until i == nil
+
+print("---------------")
+print("for 数值遍历")
+for i = 1, 5 do
+    print("for", i)
+end
+print("i", i)
+
+print("---------------")
+print("for 泛型遍历")
 do
-    a = { "one", "two", "three" }
+    a = { "one", "two", nil, "three" }
     for i, v in ipairs(a) do
         print(i, v)
     end
@@ -42,6 +92,22 @@ do
     end
 end
 
+print("---------------")
+print("goto 模拟 continue")
+do
+    i = 10
+    while i > 0 do
+        i = i - 1
+        if i == 5 then
+            goto continue
+        end
+        print("goto", i)
+        :: continue ::
+    end
+end
+
+print("---------------")
+print("goto 状态")
 do
     :: s1 ::
     do
