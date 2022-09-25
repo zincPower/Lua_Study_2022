@@ -13,12 +13,16 @@
 --    i = i + 1
 --end
 
+print("---------------")
+print("local 的使用：")
 do
     local name = "jiang peng yong"
     print(name)
 end
 print(name)
 
+print("---------------")
+print("local 和 全局变量：")
 age = 20
 do
     local age = age
