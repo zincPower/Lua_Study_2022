@@ -3,22 +3,6 @@
 --- Created by jiangpengyong.
 --- DateTime: 2022/4/10 16:39
 ---
-
-print("Hello world.")
-print("jiang peng yong")
-
-print("---------------")
-print("递归：")
-function fact(number)
-    if number == 0 then
-        return 1
-    end
-    return number * fact(number - 1)
-end
-print("Please enter a number:")
-a = io.read("*n")
-print(fact(a))
-
 print("---------------")
 print("全局变量：")
 print(b)
