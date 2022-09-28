@@ -6,6 +6,7 @@
 
 function disk(cx, cy, r)
     return function(x, y)
+        print(x, y, cx, cy, r, ((x - cx) ^ 2), ((y - cy) ^ 2), (r ^ 2))
         return (x - cx) ^ 2 + (y - cy) ^ 2 <= r ^ 2
     end
 end
@@ -46,8 +47,9 @@ function translate(r, dx, dy)
         return r(x - dx, y - dy)
     end
 end
-rootPath = "/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/闭包/"
-io.output(rootPath .. "plot.pbm")
+
+rootPath = "/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/4 闭包/"
+io.output(rootPath .. "plot.text")
 function plot(r, M, N)
     io.write("P1\n", M, " ", N, "\n")
     for i = 1, N do
@@ -61,4 +63,4 @@ function plot(r, M, N)
 end
 
 c1 = disk(0, 0, 1)
-plot(difference(c1, translate(c1, 0.3, 0)), 500, 500)
+plot(c1, 10, 10)

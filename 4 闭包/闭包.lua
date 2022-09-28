@@ -4,6 +4,8 @@
 --- DateTime: 2022/4/11 10:27
 ---
 
+print("---------------")
+print("函数变量：")
 do
     -- 将 a.p 指向 print 函数
     a = { p = print }
@@ -21,14 +23,28 @@ do
     print = a.p
 end
 
+print("---------------")
+print("匿名函数：")
 do
     foo = function(x)
         return x * x
     end
 
     print(foo(2))
+    print("type(foo)", type(foo))
+
+    function foo1()
+        print("Foo1 called.")
+    end
+    foo1()
+    print("type(foo1)", type(foo1))
+    foo1 = nil
+    --foo1()    -- attempt to call a nil value (global 'foo1')
+    print("type(foo1)", type(foo1))
 end
 
+print("---------------")
+print("排序：")
 do
     t = {
         { name = "xiao peng you", age = 20 },
@@ -43,6 +59,8 @@ do
     end
 end
 
+print("---------------")
+print("高阶函数：")
 do
     -- 导数
     function derivative(f, delta)
@@ -55,8 +73,9 @@ do
     print(math.cos(5.2), c(5.2))
 end
 
+print("---------------")
+print("定义 table 函数，三种方式：")
 do
-    -- 定义 table 函数，三种方式
     -- 第一种
     Lib1 = {}
     Lib1.add = function(a, b)
@@ -89,6 +108,8 @@ do
     print("Lib3", Lib3.add(10, 2), Lib3.reduce(2, 3))
 end
 
+print("---------------")
+print("局部函数：")
 do
     -- 局部函数，几种方式
     local function fact1(n)
@@ -106,7 +127,7 @@ do
     --        return 1
     --    end
     --    -- 因为 Lua 语言编译函数体中的 fact2(n-1) 调用时，局部的 fact2 尚未定义。
-    --    return n * fact2(n - 1)
+    --    return n * fact2(n - 1)    -- attempt to call a nil value (global 'fact2')
     --end
     --print(fact2(10))
 
@@ -121,3 +142,36 @@ do
     print(fact3(10))
 
 end
+
+print("---------------")
+print("作用域逃逸：")
+do
+    function newCounter()
+        local count = 0
+        return function()
+            count = count + 1
+            return count
+        end
+    end
+
+    local c1 = newCounter()
+    print("c1", c1())
+    print("c1", c1())
+
+    local c2 = newCounter()
+    print("c2", c2())
+    print("c1", c1())
+    print("c2", c2())
+    print("c2", c2())
+end
+
+print("---------------")
+print("更换预定义函数：")
+print("更换前，使用弧度制", math.sin(math.rad(90)))
+do
+    local oldSin = math.sin
+    math.sin = function(value)
+        return oldSin(value * (math.pi / 180))
+    end
+end
+print("更换后，使用角度", math.sin(90))
