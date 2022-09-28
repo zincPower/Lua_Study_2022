@@ -31,5 +31,5 @@ csdn：https://blog.csdn.net/weixin_37625173
 
 如果觉得所写文章和博客对您有所帮助，那请我喝杯水果茶吧
 
-![](https://github.com/zincPower/lua_study_2022/blob/master/img/alipay.jpg)
+![](https://github.com/zincPower/lua_study_2022/blob/master/img/alipay.jpeg)
 ![](https://github.com/zincPower/lua_study_2022/blob/master/img/wxpay.png)
