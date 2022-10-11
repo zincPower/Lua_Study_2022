@@ -4,6 +4,8 @@
 --- DateTime: 2022/4/14 10:28
 ---
 
+-- 使用 ```lua 单词统计.lua 10 < 演讲稿.txt``` 进行运行
+
 local counter = {}
 
 for line in io.lines() do
