@@ -28,7 +28,8 @@ do
     end
 end
 
-timestamp = 1439653520--os.time()
+-- 1665536638 --> 2022-10-12 09:03:58
+timestamp = 1665536638
 print("")
 print("timestamp", timestamp)
 print("year", getYear(timestamp))
