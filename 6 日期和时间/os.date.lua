@@ -4,40 +4,64 @@
 --- DateTime: 2022/4/14 14:11
 ---
 
+print("-------------------")
+print("os.date 和 os.time 是反函数：")
 do
-    t = os.date("*t")
+    local time = os.time()
+    print(time, os.time(os.date("*t", time)) == time)
+end
+
+print("-------------------")
+print("获取日期表：")
+do
+    print("当前时间戳的日期表：")
+    local t = os.date("*t")
+    local content = "[ "
     for k, v in pairs(t) do
-        print(k, "=", v)
+        content = content .. tostring(k) .. " = " .. tostring(v) .. ", "
     end
+    print(content .. " ]")
+
+    print("提供时间戳的日期表：")
+    -- 1665536638 --> 北京时间 2022-10-12 09:03:58
+    t = os.date("*t", 1665536638)
+    content = "[ "
+    for k, v in pairs(t) do
+        content = content .. tostring(k) .. " = " .. tostring(v) .. ", "
+    end
+    print(content .. " ]")
 end
 
+print("-------------------")
+print("获取日期表：")
 do
-    print("")
-    print("%a 星期简称", os.date("%a"))
-    print("%A 星期全称", os.date("%A"))
-    print("%b 月份简写", os.date("%b"))
-    print("%B 月份全名", os.date("%B"))
-    print("%c 日期和时间", os.date("%c"))
-    print("%d 一个月中的第几天", os.date("%d"))
-    print("%H 24 小时制", os.date("%H"))
-    print("%I 12 小时制", os.date("%I"))
-    print("%j 一年中的第几天", os.date("%j"))
-    print("%m 月份", os.date("%m"))
-    print("%M 分钟", os.date("%M"))
-    print("%p am 或 pm", os.date("%p"))
-    print("%S 秒数", os.date("%S"))
-    print("%w 星期", os.date("%w"))
-    print("%W 一年中的第几周", os.date("%W"))
-    print("%x 日期", os.date("%x"))
-    print("%X 时间", os.date("%X"))
-    print("%y 两位数的年份", os.date("%y"))
-    print("%Y 完整的年份", os.date("%Y"))
-    print("%z 时区", os.date("%z"))
-    print("%% 百分号", os.date("%%"))
+    local timestamp = os.time()
+    print("%a 星期简称", os.date("%a", timestamp))
+    print("%A 星期全称", os.date("%A", timestamp))
+    print("%b 月份简写", os.date("%b", timestamp))
+    print("%B 月份全名", os.date("%B", timestamp))
+    print("%c 日期和时间", os.date("%c", timestamp))
+    print("%d 一个月中的第几天", os.date("%d", timestamp))
+    print("%H 24 小时制", os.date("%H", timestamp))
+    print("%I 12 小时制", os.date("%I", timestamp))
+    print("%j 一年中的第几天", os.date("%j", timestamp))
+    print("%m 月份", os.date("%m", timestamp))
+    print("%M 分钟", os.date("%M", timestamp))
+    print("%p am 或 pm", os.date("%p", timestamp))
+    print("%S 秒数", os.date("%S", timestamp))
+    print("%w 星期", os.date("%w", timestamp))
+    print("%W 一年中的第几周", os.date("%W", timestamp))
+    print("%x 日期", os.date("%x", timestamp))
+    print("%X 时间", os.date("%X", timestamp))
+    print("%y 两位数的年份", os.date("%y", timestamp))
+    print("%Y 完整的年份", os.date("%Y", timestamp))
+    print("%z 时区", os.date("%z", timestamp))
+    print("%% 百分号", os.date("%%", timestamp))
 end
 
+print("-------------------")
+print("获取日期表：")
 do
-    print("")
     timestamp = os.time()
     print(os.date("%Y-%m-%d", timestamp))
     print(os.date("%Y-%m-%dT%H:%M:%S", timestamp))

@@ -28,24 +28,34 @@ do
     end
 end
 
--- 1665536638 --> 2022-10-12 09:03:58
-timestamp = 1665536638
-print("")
+print("--------------------")
+print("解析时间戳：")
+-- 1665536638 --> 北京时间 2022-10-12 09:03:58
+local timestamp = 1665536638
 print("timestamp", timestamp)
 print("year", getYear(timestamp))
 print("hour", getHour(timestamp))
 print("minute", getMinute(timestamp))
 print("second", getSecond(timestamp))
 
-print("")
-print(os.time({
+print("--------------------")
+print("日期表：")
+local timeTable = {
     -- 必填项 year、month、day
     year = 2022,
     month = 4,
     day = 14,
-    -- 选填项 hour、minute、second ，不填默认为 12:00:00
+    -- 选填项 hour、minute、second，不填默认为 12:00:00
     hour = 13,
     min = 10,
     sec = 10,
+    -- 选填项 isdst，默认为 nil
+    isdst = false
     -- wday、yday 填了也会被忽略
-}))
+}
+print("isdst = false", os.time(timeTable))
+
+timeTable.isdst = true
+print("isdst = true", os.time(timeTable))
+
+print(os.time({ year = 1970, month = 1, day = 1, hour = 24 * 5 }))
