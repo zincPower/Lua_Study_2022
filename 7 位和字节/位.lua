@@ -4,17 +4,23 @@
 --- DateTime: 2022/4/14 17:44
 ---
 
+print("----------------------------")
+print("位运算:")
 do
-    -- 位运算
     print(string.format("%x", 0xff & 0xabcd))
     print(string.format("%x", 0xff | 0xabcd))
     print(string.format("%x", 0xff ~ 0xabcd))
     print(string.format("%x", ~0))
-
     print(string.format("%x", 0xff << 12))
     print(string.format("%x", 0xff >> -12))
-
+    -- 移位数等于或大于整型表示的位数，由于所有的位都被移出，则结果为 0
     print(string.format("%x", -1 << 80))
+end
+
+do
+    local data = -0x100
+    print("逻辑右移:", string.format("%x >> 1 --> %x", data, data >> 1))
+    print("算数右移:", string.format("%x >> 1 --> %x", data, data // 2))
 end
 
 do
