@@ -100,21 +100,37 @@ do
     local t = { year = 2022, month = 3, day = 31 }
     print("原始日期", os.date("%Y-%m-%d", os.time(t)))
     t.month = t.month + 1
-    print("推进 1 个月",os.date("%Y-%m-%d", os.time(t)))
+    print("推进 1 个月", os.date("%Y-%m-%d", os.time(t)))
     t.month = t.month - 1
-    print("后退 1 个月",os.date("%Y-%m-%d", os.time(t)))
+    print("后退 1 个月", os.date("%Y-%m-%d", os.time(t)))
 end
 
 print("-------------------")
 print("计算时间差：")
 do
-    local start = os.time({ year = 2022, month = 1, day = 1 })
-    local current = os.time()
-    local diff = os.difftime(current, start)
-    print(diff)
+    local startTime = os.time({ year = 2022, month = 1, day = 1 })
+    -- 北京时间 2022-10-12 09:03:58
+    local endTime = 1665536638
+    local diff = os.difftime(endTime, startTime)
+    print(string.format("%s 到 %s 相差 %s", startTime, endTime, diff))
+
     local t = { year = 2023, month = 1, day = 1 }
-    print(os.time(t))
     t.sec = diff
-    print(os.time(t))
     print(os.date("%Y/%m/%d", os.time(t)))
+end
+
+print("-------------------")
+print("获取毫秒：")
+do
+    local function someLogic()
+        -- 一些需要统计时间的逻辑
+        local s = 0
+        for i = 1, 100000000 do
+            s = s + i
+        end
+    end
+
+    local startTime = os.clock()
+    someLogic()
+    print(string.format("耗费时间：%.2f", os.clock() - startTime))
 end
