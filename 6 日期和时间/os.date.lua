@@ -33,9 +33,10 @@ do
 end
 
 print("-------------------")
-print("获取日期表：")
+print("格式化日期：")
 do
-    local timestamp = os.time()
+    -- 北京时间 2022-10-12 09:03:58
+    local timestamp = 1665536638
     print("%a 星期简称", os.date("%a", timestamp))
     print("%A 星期全称", os.date("%A", timestamp))
     print("%b 月份简写", os.date("%b", timestamp))
@@ -57,50 +58,56 @@ do
     print("%Y 完整的年份", os.date("%Y", timestamp))
     print("%z 时区", os.date("%z", timestamp))
     print("%% 百分号", os.date("%%", timestamp))
+    -- 第一个参数默认 %c , 第二个参数默认当前时间
+    print("默认参数", os.date())
+end
+
+do
+    print("UTC 格式解析：")
+    -- 北京时间 2022-10-12 09:03:58
+    local timestamp = 1665536638
+    print("!%H 24 小时制", os.date("!%H", timestamp))
+    print("!%c 日期和时间", os.date("!%c", timestamp))
+end
+
+print("使用例子：")
+do
+    -- 北京时间 2022-10-12 09:03:58
+    local timestamp = 1665536638
+    print(os.date("%Y/%m/%d", timestamp))
+    print(os.date("%Y-%m-%d %H:%M:%S", timestamp))
+    print(os.date("%Y-%j", timestamp))
 end
 
 print("-------------------")
-print("获取日期表：")
+print("处理日期：")
 do
-    timestamp = os.time()
-    print(os.date("%Y-%m-%d", timestamp))
-    print(os.date("%Y-%m-%dT%H:%M:%S", timestamp))
-    print(os.date("%Y-%j", timestamp))
-    print(os.date("%c", timestamp))
-    -- UTC
-    print(os.date("!%c", timestamp))
-    -- 第一个参数默认 %c , 第二个参数默认当前时间
-    print(os.date())
-end
-
-do
-    print("")
-    local timestamp = os.time()
-    print(timestamp)
-    print(os.date("%Y/%m/%d", timestamp))
+    -- 北京时间 2022-10-12 09:03:58
+    local timestamp = 1665536638
+    print("原始时间", os.date("%Y/%m/%d", timestamp))
     local currentTable = os.date("*t", timestamp)
-    -- 向前推 40 天
+    -- 向前回退 40 天
     currentTable.day = currentTable.day - 40
-    print(os.date("%Y/%m/%d", os.time(currentTable)))
-    -- 向后 6 个月
+    print("回退 40 天", os.date("%Y/%m/%d", os.time(currentTable)))
+    -- 向后推进 6 个月
     currentTable = os.date("*t", timestamp)
     currentTable.month = currentTable.month + 6
-    print(os.date("%Y/%m/%d", os.time(currentTable)))
+    print("推进 6 个月", os.date("%Y/%m/%d", os.time(currentTable)))
 
     -- 这里的转换会有问题（由于日历机制导致）
     -- 3 月 31 号 + 1 个月 --> 4 月 31 号 --> 5 月 1 号
     -- 5 月 1 号 - 1 个月 --> 4 月 1 号
     local t = { year = 2022, month = 3, day = 31 }
-    print(os.date("%Y-%m-%d", os.time(t)))
+    print("原始日期", os.date("%Y-%m-%d", os.time(t)))
     t.month = t.month + 1
-    print(os.date("%Y-%m-%d", os.time(t)))
+    print("推进 1 个月",os.date("%Y-%m-%d", os.time(t)))
     t.month = t.month - 1
-    print(os.date("%Y-%m-%d", os.time(t)))
+    print("后退 1 个月",os.date("%Y-%m-%d", os.time(t)))
 end
 
+print("-------------------")
+print("计算时间差：")
 do
-    -- 计算时间差值
-    print("")
     local start = os.time({ year = 2022, month = 1, day = 1 })
     local current = os.time()
     local diff = os.difftime(current, start)
