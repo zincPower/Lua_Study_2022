@@ -4,6 +4,8 @@
 --- DateTime: 2022/4/14 18:17
 ---
 
+print("---------------------")
+print("二进制使用：")
 do
     -- b char
     -- h short
@@ -16,60 +18,76 @@ do
     print(string.unpack(format, s))
 end
 
+print("---------------------")
+print("解析字符串 '\\0' ：")
 do
     local s = "hello\0Lua\0world\0"
     local i = 0
     while i <= #s do
         local res
+        -- "z" 表示一个以 '\0' 结尾的字符串
         res, i = string.unpack("z", s, i)
         print(res)
     end
 end
 
+print("---------------------")
+print("按照固定的字节进行打包：")
 do
     local n1 = 1 << 54
-    print(n1)
-    local x1 = string.pack("i7", n1)
-    print(string.unpack("i7", x1))
+    print(string.format("%X", n1))
+    local x1 = string.pack("i8", n1)
+    print(#x1, string.format("%X", string.unpack("i8", x1)))
 end
 
+print("---------------------")
+print("打包和解包都会进行检查:")
 do
-    -- 打包和解包都会进行检查
-    print("")
-    local n2 = -(1 << 54)
-    print(n2)
-    local x2 = string.pack("i7", n2)
-    print(string.unpack("i7", x2))
+    local x2 = string.pack("i8", 1 << 63)
+    print(string.format("%X", string.unpack("i8", x2)))
     -- 打包会进行检查是否溢出
-    -- lua:38: bad argument #2 to 'pack' (integer overflow)
-    --print(string.pack("i7", 1 << 55))
+    -- bad argument #2 to 'pack' (integer overflow)
+    --print(string.pack("i7", 1 << 63))
 
     local x = string.pack("i12", 2 ^ 61)
-    string.unpack("i12", x)
+    print(string.unpack("i12", x))
+    -- 模拟一个大的 12 字节的数值
     x = "aaaa" .. "aaaa" .. "aaaa"
-    -- 解包也会检查是否能装得下，lua:48: 12-byte integer does not fit into Lua Integer
+    -- 解包也会检查是否能装得下
+    -- 12-byte integer does not fit into Lua Integer
     --string.unpack("i12", x)
 end
 
+print("---------------------")
+print("大写表示无符号:")
 do
-    -- 无符号
     local s = "\xFF"
     print(string.unpack("b", s))
     print(string.unpack("B", s))
 end
 
+print("---------------------")
+print("字符串：")
 do
-    print("")
     print("----- sn -----")
-    local s1 = string.pack("s", "hello")
+    local s1 = string.pack("s1", "hello")
+    print("s1 长度", #s1)
+    for i = 1, #s1 do
+        print(string.unpack("B", s1, i))
+    end
+    s1 = string.pack("s2", "hello")
+    print("s2 长度", #s1)
     for i = 1, #s1 do
         print(string.unpack("B", s1, i))
     end
 
-    print("")
     print("----- s -----")
-    local s2 = string.pack("s", "hello")
-    print(string.unpack("s", s2, i))
+    s1 = string.pack("s", "hello")
+    print("s 长度", #s1)
+    print(string.unpack("s", s1, i))
+    for i = 1, #s1 do
+        print(string.unpack("B", s1, i))
+    end
 
     print("----- cn -----")
     local s3 = string.pack("c5", "hello")
@@ -79,18 +97,57 @@ do
     print(string.unpack("c5", s3))
 end
 
+print("---------------------")
+print("浮点数：")
 do
-    -- 二进制对齐模式
-    print("")
-    -- 大端模式
+    local f1 = string.pack("fff", 3.14, 1.70, 1.88)
+    print(string.unpack("fff", f1))
+end
+
+print("---------------------")
+print("大小端模式：")
+do
+    print("默认模式")
+    local s0 = string.pack("i2 i2", 500, 24)
+    for i = 1, #s0 do
+        print(string.unpack("B", s0, i))
+    end
+
     print("大端模式")
-    local s1 = string.pack(">i4", 1000000)
+    local s1 = string.pack(">i2 i2", 500, 24)
     for i = 1, #s1 do
         print(string.unpack("B", s1, i))
     end
+
     print("小端模式")
     local s2 = string.pack("<i2 i2", 500, 24)
     for i = 1, #s2 do
         print(string.unpack("B", s2, i))
+    end
+
+    print("默认模式")
+    local s3 = string.pack(">i2 =i2", 500, 24)
+    for i = 1, #s3 do
+        print(string.unpack("B", s3, i))
+    end
+end
+
+print("---------------------")
+print("对齐:")
+do
+    local s = string.pack("!4 i1 i2 i4", 10, 10, 10)
+    print("#s", #s)
+    for i = 1, #s do
+        print(string.unpack("i1", s, i))
+    end
+end
+
+print("---------------------")
+print("手工添加:")
+do
+    local s = string.pack("i1i1xi1", 10, 10, 10)
+    print("#s", #s)
+    for i = 1, #s do
+        print(string.unpack("i1", s, i))
     end
 end
