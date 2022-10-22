@@ -23,41 +23,128 @@ do
     print("算数右移:", string.format("%x >> 1 --> %x", data, data // 2))
 end
 
+print("----------------------------")
+print("无符号整数:")
 do
-    -- 无符号输出
     local x = 3 << 62
-    print("")
-    print(string.format("%u", x))
-    print(string.format("0x%X", x))
-    print(string.format("%u", x + 1))
-    print(string.format("%u", x - 1))
+    print("有符号整数显示：", x)
+    -- %u 十进制无符号整数
+    print("使用十进制无符号显示", string.format("%u", x))
+    -- %X 十六进制
+    print("使用十六进制无符号显示", string.format("0x%X", x))
+    print("使用十进制无符号显示 +1", string.format("%u", x + 1))
+    print("使用十进制无符号显示 -1", string.format("%u", x - 1))
+    x = 1 << 62
+    print("使用十进制无符号显示 * 2", string.format("%X", x * 2))
+
+    local y = -3
+    print("有符号整数显示：", y)
+    -- %u 十进制无符号整数
+    print("使用十进制无符号显示", string.format("%u", y))
+    -- %X 十六进制
+    print("使用十六进制无符号显示", string.format("0x%X", y))
+    print("使用十进制无符号显示 +1", string.format("%u", y + 1))
+    print("使用十进制无符号显示 -1", string.format("%u", y - 1))
 end
 
+print("----------------------------")
+print("无符号比较:")
 do
-    -- 无符号比较
     local n1 = 0x7fffffffffffffff
     local n2 = 0x8000000000000000
-    print(n1 < n2)
-    print(math.ult(n1, n2))
+    print(n1, n2, n1 < n2)
+    print(n1, n2, math.ult(n1, n2))
+
     local mask = 0x8000000000000000
-    print((n1 ~ mask) < (n2 ~ mask))
+    print(n1, n2, (n1 ~ mask) < (n2 ~ mask))
+
+    local n3 = -10
+    local n4 = 10
+    print("有符号：", n3 .. "<" .. n4, n3 < n4)
+    print("无符号：", n4 .. "<" .. n3, math.ult(n4, n3))
+    print("无符号：", n4 .. "<" .. n3, (n4 ~ mask) < (n3 ~ mask))
 end
 
+print("----------------------------")
+print("无符号除法:")
 do
-    -- 无符号除法
     function udiv(n, d)
+        -- d<0 实质比较除数是否大于 2^63
         if d < 0 then
+            -- 如果除数大于被除数（n<d），则商为 0 ；否则为 1
             if math.ult(n, d) then
                 return 0
             else
                 return 1
             end
         end
+
+        -- n >> 1 等价于将无符号整数 n / 2 , 这样的做法是先去除符号位置的影响
+        -- 最后 << 1 等价于 * 2 ，这样是为了纠正一开始 >> 1
+        -- // d 进行有符号整数的正常向下取整除法
         local q = ((n >> 1) // d) << 1
+        -- 计算因为移位和向下取整导致的丢失数值，计算出两个结果后，如果偏差大于除数，说明需要加一
         local r = n - q * d
         if not math.ult(r, d) then
             q = q + 1
         end
-        return 1
+        return q
     end
+
+    local u1 = 1 << 1
+    -- 正常数字除法
+    local div1 = 2
+    print(string.format("%X/%X = %X", u1, div1, udiv(u1, div1)))
+    -- （符号位为 1 ）很大的数进行无符号除法
+    local u2 = 1 << 63
+    print(string.format("%X/%X = %X", u2, div1, udiv(u2, div1)))
+    -- （符号位为 0 ）正常的数进行无符号除法
+    local u3 = 1 << 62
+    print(string.format("%X/%X = %X", u3, div1, udiv(u3, div1)))
+    -- 除数很大，符号为为 1 ，被除数 < 除数
+    local div2 = 1 << 63
+    print(string.format("%X/%X = %X", u3, div2, udiv(u3, div2)))
+    -- 被除数 > 除数
+    local u4 = (1 << 63) + 1
+    print(string.format("%X/%X = %X", u4, div2, udiv(u4, div2)))
+    local u5 = (1 << 63) + 3
+    print(string.format("%X/%X = %X", u5, div1, udiv(u5, div1)))
+end
+
+print("----------------------------")
+print("无符号整数 -> 浮点型数:")
+do
+    -- C000000000000000
+    local u = 0xC000000000000000
+    print(math.type(u), string.format("%X", u))
+    -- + 0.0 是为将 u 转为 float ， % 取余的规则符合通用规则，只要其中有一个为浮点数，结果则为浮点数
+    -- 2 ^ 64 即为 0xFFFFFFFFFFFFFFFF ，%(2 ^ 64) 是为将结果约束在这其中，否则显示时会被认为是有符号
+    local f = (u + 0.0) % 2 ^ 64
+    print(math.type(f), string.format("%.0f", f))
+end
+
+print("----------------------------")
+print("浮点型数 -> 无符号整数:")
+do
+    function utointerger(value)
+        if math.type(value) == "integer" then
+            return value
+        end
+        print(string.format("%.0f", value))
+        -- f + 2 ^ 63 是为了让数转为一个大于 2 ^ 64 的数
+        -- % (2 ^ 64) 是为了让数值限制在 [0, 2 ^ 64) 范围
+        -- - 2 ^ 63 是为了把结果改为一个"负值"（最高位为 1 ）
+        -- 对于小于 2 ^ 63 的数：
+        -- 其实没有什么特殊的，加完一个数值（2 ^ 63）之后有减掉了，所以没有什么特殊
+        local result = math.tointeger(((value + 2 ^ 63) % (2 ^ 64)) - 2 ^ 63)
+        return result + (math.tointeger(value - result) or 0)
+    end
+
+    local f = 0xF000000000000000.0
+    local u = utointerger(f)
+    print(math.type(u), string.format("%X", u))
+
+    local f1 = 0x8000000000000005.0
+    local u1 = utointerger(f1)
+    print(math.type(u1), string.format("%X", u1))
 end
