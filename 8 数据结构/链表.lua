@@ -4,3 +4,16 @@
 --- DateTime: 2022/10/25 08:40
 ---
 
+print("---------------------")
+print("构建链表：")
+local aPoint = {value = "A", next = nil}
+local bPoint = {value = "B", next = aPoint}
+local cPoint = {value = "C", next = bPoint}
+
+print("---------------------")
+print("遍历链表：")
+local list = cPoint
+while list do
+    print(list.value)
+    list = list.next
+end
