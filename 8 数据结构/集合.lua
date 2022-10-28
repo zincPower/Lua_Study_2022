@@ -13,14 +13,11 @@ do
         return set
     end
 
-    reserved = Set { "while", "end", "function", "local" }
+    local reserved = Set { "while", "end", "function", "local" }
     for i, v in pairs(reserved) do
         print(i, "==>", v)
     end
-end
 
-do
-    print("")
     local s = [[_while]]
     local ids = {}
     for w in string.gmatch(s, "[%a_][%w_]*") do
