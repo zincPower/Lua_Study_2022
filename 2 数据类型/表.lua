@@ -108,7 +108,7 @@ function showTable(table)
     print(list)
 end
 
-print("")
+print("-------------")
 print("表标准库操作---列表和序列")
 ----- 表标准库操作 -----
 table7 = { 10, 20, 30 }
@@ -158,4 +158,43 @@ table.sort(table9, function(a, b)
 end)
 for i, v in ipairs(table9) do
     print(i, "-->", v.name, "--", v.age)
+end
+
+print("-------------")
+print("字符串缓冲区：")
+do
+    local result = ""
+    local startTime = os.clock()
+    -- 循环 20 万次
+    for i = 1, 200000 do
+        result = result .. "jiang"
+    end
+    print("没有使用字符串缓冲区耗时: ", os.clock() - startTime, #result)
+
+    local result2 = {}
+    startTime = os.clock()
+    -- 循环 20 万次
+    for i = 1, 200000 do
+        result2[i] = "jiang"
+    end
+    local result3 = table.concat(result2)
+    print("使用字符串缓冲区耗时: ", os.clock() - startTime, #result3)
+end
+
+print("-------------")
+print("字符串连接符：")
+do
+    local content = {}
+    for i = 1, 5 do
+        content[i] = "jiang"
+    end
+    print(table.concat(content, "-"))
+
+    -- 末尾也要连接符
+    content[#content + 1] = ""
+    print(table.concat(content, "-"))
+
+    -- 末尾也要连接符
+    table.insert(content, 1, "")
+    print(table.concat(content, "-"))
 end
