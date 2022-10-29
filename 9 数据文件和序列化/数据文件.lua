@@ -4,24 +4,27 @@
 --- DateTime: 2022/4/16 15:47
 ---
 
+print("-------------------------")
+print("统计个数：")
 do
     local count = 0
     function Entry()
         count = count + 1
     end
     -- 内部会调用 entry
-    dofile("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/数据文件和序列化/data.txt")
+    dofile("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/9 数据文件和序列化/data.txt")
     print("number of entries: " .. count)
 end
 
+print("-------------------------")
+print("收集数据：")
 do
-    print("")
     local authors = {}
     function Entry(author)
         table.insert(authors, author)
     end
     -- 内部会调用 entry
-    dofile("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/数据文件和序列化/data.txt")
+    dofile("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/9 数据文件和序列化/data.txt")
     for key, author in pairs(authors) do
         print("key: ", key)
         for key, value in pairs(author) do
