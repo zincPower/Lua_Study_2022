@@ -4,15 +4,52 @@
 --- DateTime: 2022/4/16 18:10
 ---
 
+print("-----------------------------------")
+print("不带循环的表：")
+do
+    function serialize(o)
+        local t = type(o)
+        if t == "number" or t == "string" or t == "boolean" or t == "nil" then
+            io.write(string.format("%q", o))
+        elseif t == "table" then
+            io.write("{\n")
+            for k, v in pairs(o) do
+
+                --- 第一种：这种做法能让 key = value 的形式比较直观，但带来的缺陷是一些关键字不能兼容
+                --io.write("  ", k, " = ")
+                --- 第二种：可读性比较差，以 ["key"] = value 形式保存，但是可以兼容所有关键字
+                io.write(" [")
+                serialize(k)
+                io.write("] = ")
+
+                serialize(v)
+                io.write(",\n")
+            end
+            io.write("}\n")
+        else
+            error(string.format("cannot serialize a %s", type(o)))
+        end
+    end
+
+    print(serialize({ a = 12, b = 'Lua', key = 'another "one"' }))
+end
+
+print("-----------------------------------")
+print("带循环使用的表：")
 do
     local function basicSerialize(o)
+        -- 对于 Lua 5.3.3 开始， %q 可以正常的显示字符串、 nil 、 数值（浮点数会使用十六进制进行保证精度）和 boolean 类型
         return string.format("%q", o)
     end
 
     function save(name, value, saved)
         saved = saved or {}
         io.write(name, " = ")
-        if type(value) == "number" or type(value) == "string" then
+        if type(value) == "number"
+                or type(value) == "string"
+                or type(value) == "boolean"
+                or type(value) == "nil"
+        then
             io.write(basicSerialize(value), "\n")
         elseif type(value) == "table" then
             if saved[value] then
@@ -21,7 +58,6 @@ do
                 saved[value] = name
                 io.write("{}\n")
                 for k, v in pairs(value) do
-                    print("v=", v)
                     k = basicSerialize(k)
                     local fname = string.format("%s[%s]", name, k)
                     save(fname, v, saved)
@@ -33,23 +69,25 @@ do
     end
 end
 
+print("保存相互嵌套表：")
 local table = {}
 jiang = {}
 xiao = {}
 jiang[1] = xiao
 xiao[1] = jiang
 save("a", jiang, table)
-for i, v in pairs(table) do
-    print(i, "--", v)
-end
 
-print("")
+--for i, v in pairs(table) do
+--    print(i, "--", v)
+--end
+
+print("保存自身相互嵌套：")
 a = { x = 1, y = 2, { 3, 4, 5 } }
 a[2] = a
 a.z = a[1]
 save("a", a)
 
-print("")
+print("保存相互嵌套，共用表：")
 b = { { "one", "two" }, 3 }
 c = { k = b[1] }
 local t = {}
