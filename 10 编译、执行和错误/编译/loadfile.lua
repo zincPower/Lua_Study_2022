@@ -13,7 +13,7 @@ end
 
 load()
 
-local load = loadfile("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/10 编译、执行和错误/编译/加载的文件.lua")
+local load = loadfile("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/10 编译、执行和错误/编译/被搜索器加载的文件.lua")
 load()
 
 print(name)

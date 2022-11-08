@@ -4,15 +4,19 @@
 --- DateTime: 2022/4/17 10:32
 ---
 
-print("test module start")
+print("==================================")
+print("进入模块")
 print("模块入参：", ...)
 
 -- 这里没有使用 local ， 则会让外部调用 require 的文件也导入了该属性，其实就是全局
-name = "江澎涌"
+local name = "江澎涌"
 
 local foo = function()
     print("foo", name)
 end
+
+print("即将出模块")
+print("==================================")
 
 -- 第一种返回，使用 return 进行返回值
 --return {
