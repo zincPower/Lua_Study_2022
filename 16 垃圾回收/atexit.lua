@@ -10,6 +10,7 @@ local mt = {
     end
 }
 setmetatable(mt, mt)
-_G["*AA*"] = mt
+_G[{}] = mt
 
---setmetatable(_G, mt)
+collectgarbage()
+print("over")

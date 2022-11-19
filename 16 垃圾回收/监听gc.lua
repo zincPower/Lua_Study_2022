@@ -7,20 +7,20 @@
 do
     local mt = {
         __gc = function(o)
-            print("new cycle")
+            print("new cycle", o)
             setmetatable({}, getmetatable(o))
         end
     }
     setmetatable({}, mt)
 end
 
-local mt = {
-    __gc = function()
-        print("finishing Lua Program.")
-    end
-}
-setmetatable(mt, mt)
-_G["*AA*"] = mt
+--local mt = {
+--    __gc = function()
+--        print("finishing Lua Program.")
+--    end
+--}
+--setmetatable(mt, mt)
+--_G[{}] = mt
 
 print("---- 1 -----")
 collectgarbage()

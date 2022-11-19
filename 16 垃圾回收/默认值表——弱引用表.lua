@@ -4,6 +4,8 @@
 --- DateTime: 2022/4/20 9:41 PM
 ---
 
+print("=================================================")
+print("默认值——全部使用同一元表：")
 do
     local defaults = {}
     setmetatable(defaults, { __mode = "k" })
@@ -17,10 +19,12 @@ do
 
     local t = { x = 10, y = "江" }
     print(t.x, t.y, t.z)
-    setDefault(t, "涌0")
+    setDefault(t, "default value")
     print(t.x, t.y, t.z)
 end
 
+print("=================================================")
+print("默认值——默认值共享元表：")
 do
     local metas = {}
     setmetatable(metas, { __mode = "v" })
@@ -37,6 +41,6 @@ do
 
     local t = { x = 10, y = "江" }
     print(t.x, t.y, t.z)
-    setDefault(t, "涌1")
+    setDefault(t, "default value")
     print(t.x, t.y, t.z)
 end
