@@ -4,8 +4,12 @@
 --- DateTime: 2022/4/20 7:46 PM
 ---
 
+-- 将需要的外部全局保存
 local print = print
-M = {}
+local _G = _G
+
+-- 内部重新替换一个新的 ENV ， 形成隔离
+local M = {}
 _ENV = M
 
 a = "江澎涌"
@@ -13,3 +17,5 @@ b = 10
 
 print("module", a)
 print("module", b)
+
+return M

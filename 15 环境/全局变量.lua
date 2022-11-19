@@ -4,14 +4,26 @@
 --- DateTime: 2022/4/19 7:44 PM
 ---
 
+print("=================================")
+print("全局变量：")
+print(_G, _G._G)
+
+age = 100
+print(age)
+print(_G.age)
+
+print("=================================")
+print("获取多级元素：")
 function getField(f)
     local v = _G
     for w in string.gmatch(f, "[%a_][%w_]*") do
         v = v[w]
+        if v == nil then
+            return v
+        end
     end
     return v
 end
-
 function setField(f, v)
     local t = _G
     for w, d in string.gmatch(f, "([%a_][%w_]*)(%.?)") do
@@ -24,15 +36,20 @@ function setField(f, v)
     end
 end
 
+print(_G["io.read"])
+print(getField("io.read"))
+_G["a.b.c.d"] = "jiang"
+print(_G["a.b.c.d"])
+print(getField("a.b.c.d"))
+setField("a.b.c.d", "pengyong")
+print(getField("a.b.c.d"))
+
+print("=================================")
+print("显示全局变量：")
 function showGlobal()
     print("global variable")
     for k, v in pairs(_G) do
         print(k, "---", v)
     end
 end
-
-setField("t.x.y", 10)
-print(t.x.y)
-print(getField("t.x.y"))
-
 showGlobal()

@@ -4,12 +4,15 @@
 --- DateTime: 2022/4/20 8:18 PM
 ---
 
+-- 通过接收可变入参，达到每次的上值不同
 env = {}
 f = load([[
     _ENV = ...;
     a = 100;
     b = 10;
 ]])
+
 f(env)
+
 print(env.a, env.b)
 print(a, b)
