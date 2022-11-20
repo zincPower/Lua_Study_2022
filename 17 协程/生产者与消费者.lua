@@ -4,7 +4,7 @@
 --- DateTime: 2022/4/23 12:09
 ---
 
-function producer()
+function produce()
     local x = 1;
     while true do
         x = x + 1;
@@ -12,7 +12,7 @@ function producer()
     end
 end
 
-function consumer()
+function consume()
     local y = 1
     while y <= 100 do
         local x = receive()
@@ -32,6 +32,5 @@ function send(x)
     coroutine.yield(x)
 end
 
-producer = coroutine.create(producer)
-
-consumer()
+producer = coroutine.create(produce)
+consume()
