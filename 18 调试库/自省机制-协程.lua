@@ -10,10 +10,10 @@ co = coroutine.create(function()
     error("coroutine error............")
 end)
 
-print(coroutine.resume(co))
-print(debug.traceback(co))
+print("运行返回", coroutine.resume(co))
+print("打应栈", debug.traceback(co))
 
-print(coroutine.resume(co))
-print(debug.traceback(co))
+print("运行返回", coroutine.resume(co))
+print("打应栈", debug.traceback(co))
 
-print(debug.getlocal(co, 1, 1))
+print("获取局部变量", debug.getlocal(co, 1, 1))

@@ -6,8 +6,10 @@
 
 x = "jiang pengyong"
 
+print("========================================")
+print("监听每行运行（打印行号）：")
 do
-    -- 开始新的行时，会调用 print
+    -- 开始运行时，会调用 print
     debug.sethook(print, "l")
 
     print("江澎涌")
@@ -15,18 +17,26 @@ do
     debug.sethook()
 end
 
+print("========================================")
+print("监听每行运行（打印行文件名）：")
 do
-    print("")
     function trace(event, line)
+        print(event, line)
         local s = debug.getinfo(2).short_src
         print(s, ":", line)
     end
     debug.sethook(trace, "l")
     print("江澎涌")
     print("小朋友")
+    function show()
+        print("江澎涌")
+    end
+    show()
+
     debug.sethook()
 end
 
+print("========================================")
 do
     function debug1()
         while true do
