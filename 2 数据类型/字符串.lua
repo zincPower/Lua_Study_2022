@@ -69,7 +69,7 @@ print("10" == 10)   --> false
 --print(10 < "11")    -- attempt to compare string with number
 -- 字符串之间比较的是字符顺序
 print("10" < "11")   --> true
-print(10 < 11)       --> false
+print(10 < 11)       -->
 
 print("--------------------------")
 print("string: ")

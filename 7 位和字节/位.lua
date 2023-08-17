@@ -35,7 +35,8 @@ do
     print("使用十进制无符号显示 +1", string.format("%u", x + 1))
     print("使用十进制无符号显示 -1", string.format("%u", x - 1))
     x = 1 << 62
-    print("使用十进制无符号显示 * 2", string.format("%X", x * 2))
+    print("使用十六进制无符号显示", string.format("0x%X", x))
+    print("使用十进制无符号显示 * 2", string.format("0x%X", x * 2))
 
     local y = -3
     print("有符号整数显示：", y)
@@ -118,9 +119,11 @@ do
     local u = 0xC000000000000000
     print(math.type(u), string.format("%X", u))
     -- + 0.0 是为将 u 转为 float ， % 取余的规则符合通用规则，只要其中有一个为浮点数，结果则为浮点数
-    -- 2 ^ 64 即为 0xFFFFFFFFFFFFFFFF ，%(2 ^ 64) 是为将结果约束在这其中，否则显示时会被认为是有符号
+    -- %(2 ^ 64) 是为将结果约束在这其中，否则显示时会被认为是有符号
     local f = (u + 0.0) % 2 ^ 64
     print(math.type(f), string.format("%.0f", f))
+    local f1 = (u + 0.0)
+    print(math.type(f1), string.format("%.0f", f1))
 end
 
 print("----------------------------")

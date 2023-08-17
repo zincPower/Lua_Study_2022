@@ -67,7 +67,9 @@ do
     -- 北京时间 2022-10-12 09:03:58
     local timestamp = 1665536638
     print("!%H 24 小时制", os.date("!%H", timestamp))
+    print("%H 24 小时制", os.date("%H", timestamp))
     print("!%c 日期和时间", os.date("!%c", timestamp))
+    print("%c 日期和时间", os.date("%c", timestamp))
 end
 
 print("使用例子：")

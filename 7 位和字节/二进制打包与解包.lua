@@ -90,18 +90,20 @@ do
     end
 
     print("----- cn -----")
-    local s3 = string.pack("c5", "hello")
+    local name = "江澎涌"
+    local fmt = string.format("c%d", #name)
+    local s3 = string.pack(fmt, name)
     for i = 1, #s3 do
         print(string.unpack("B", s3, i))
     end
-    print(string.unpack("c5", s3))
+    print(string.unpack(fmt, s3))
 end
 
 print("---------------------")
 print("浮点数：")
 do
-    local f1 = string.pack("fff", 3.14, 1.70, 1.88)
-    print(string.unpack("fff", f1))
+    local p = string.pack("fdn", 3.14, 1.70, 10.89)
+    print(string.unpack("fdn", p))
 end
 
 print("---------------------")

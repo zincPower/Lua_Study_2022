@@ -95,21 +95,22 @@ print(math.rad(360))
 print("-------------------------")
 print("随机数：")
 math.randomseed(1)
+--math.randomseed(os.time())
 local r1 = ""
 for _ = 1, 5 do
     r1 = r1 .. " " .. math.random()
 end
-print("math.random() 十次：", r1)
+print("math.random() 五次：", r1)
 local r2 = ""
 for _ = 1, 5 do
     r2 = r2 .. " " .. math.random(10)
 end
-print("math.random() 十次：", r2)
+print("math.random() 五次：", r2)
 local r3 = ""
 for _ = 1, 5 do
     r3 = r3 .. " " .. math.random(11, 20)
 end
-print("math.random() 十次：", r3)
+print("math.random() 五次：", r3)
 
 print("-------------------------")
 print("取整函数：")
