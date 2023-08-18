@@ -114,6 +114,7 @@ do
         end
     end
     -- 遍历每一个元素，行乘列的形式处理
+    -- c = a x b
     for i = 1, M do
         for j = 1, N do
             for k = 1, K do
