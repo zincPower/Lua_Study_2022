@@ -1,7 +1,8 @@
 -- lua dump.lua 需要解析文件
-local f = assert(io.open(arg[1], "rb"))
+--local f = assert(io.open(arg[1], "rb"))
 local rootPath = "/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/7 位和字节/"
-local output = assert(io.open(rootPath.."outputBinary.txt", "wb"))
+local f = io.open(rootPath .. "dump.lua", "rb")
+local output = assert(io.open(rootPath .. "outputBinary.txt", "wb"))
 -- 16 字节读取文件
 local blockSize = 16
 -- 循环读取文件，每次读取 16 个字符

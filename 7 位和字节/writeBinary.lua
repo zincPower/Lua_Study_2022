@@ -1,6 +1,7 @@
 -- lua dump.lua 需要解析文件
-local inputFile = assert(io.open(arg[1], "rb"))
+--local inputFile = assert(io.open(arg[1], "rb"))
 local rootPath = "/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/7 位和字节/"
+local inputFile = io.open(rootPath .. "test.jpeg", "rb")
 
 -- 16 字节读取文件
 local blockSize = 16
