@@ -8,7 +8,7 @@ print("------------------------")
 print("加载字符串：")
 do
     name = "江澎涌"
-    local l, error = load("name = name..'。'")
+    local l, error = load("name = name..'！'")
     print("返回值", l, error)
     print(name)
     l()
@@ -55,9 +55,9 @@ do
     local l1, error1 = load(loadContent, "jiangpengyong debug", "bt", t)
     print("返回值", l1, error1)
     print(t.name)
-    l()
+    l1()
     print(t.name)
-    l()
+    l1()
     print(t.name)
 end
 
@@ -87,7 +87,7 @@ do
 
     --- local l, error = load(io.lines("/Users/jiangpengyong/Desktop/study/lua_study_2022/10 编译、执行和错误/编译/加载的文件.lua"))
     --- 这样写会有问题，需要拆开
-    local lines = io.lines("/Users/jiangpengyong/Desktop/study/lua_study_2022/10 编译、执行和错误/编译/加载的文件.lua", "L")
+    local lines = io.lines("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/10 编译、执行和错误/编译/加载的文件.lua", "L")
     local l, error = load(lines)
     print(l, error)
     l()
