@@ -8,6 +8,6 @@ print("------------------------")
 print("load 异常的块")
 do
     -- info 是 nil，load 加载块则会出异常
-    local f = load("info.name")
-    f()
+    local f, error = load("info.name")
+    print(f, error)
 end
