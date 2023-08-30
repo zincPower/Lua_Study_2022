@@ -6,7 +6,8 @@
 
 ## 一、项目介绍
 
-用于记录和收集学习 Lua 过程中的知识点，汇总成文章方便查阅。
+用于记录和收集学习 Lua 过程中的知识点，汇总成文章方便查阅，可以[进入专栏方便阅读](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg2MzQ0MDA1OA==&action=getalbum&album_id=3071437744473948163#wechat_redirect
+)。
 
 同时融入一些工作过程中遇到的坑，不断在实践中成长。
 
