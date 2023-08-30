@@ -20,8 +20,6 @@
 
 博客：[Lua 在终端使用交互模式](https://mp.weixin.qq.com/s?__biz=Mzg2MzQ0MDA1OA==&mid=2247484072&idx=1&sn=c6973d69dfe2a05140a7f81664097734&chksm=ce79df7df90e566baebc3bae3240eca90f01a8db6fc1130141bf79eb91ac8d575bfc8e1f8907&token=1649541590&lang=zh_CN#rd)
 
-代码：[传送门](https://github.com/zincPower/lua_study_2022/tree/master/1%20%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95)
-
 ### 3、Lua 起航 —— 一些常用基础语法
 
 博客：[Lua 起航 —— 一些常用基础语法](https://mp.weixin.qq.com/s?__biz=Mzg2MzQ0MDA1OA==&mid=2247484090&idx=1&sn=c9cc18e5a2babed9a3ddf3b89e3b6918&chksm=ce79df6ff90e56795598f2c26f643cb4f296eebaa58551458401b02c9f4fd9ace5530de6a1e2&token=1649541590&lang=zh_CN#rd)
@@ -119,7 +117,7 @@
 
 csdn：https://blog.csdn.net/weixin_37625173
 
-公众号：江澎涌
+公众号：微信搜索 "江澎涌" ，或扫描二维码
 
 ![](https://github.com/zincPower/lua_study_2022/blob/master/img/公众号.png)
 
