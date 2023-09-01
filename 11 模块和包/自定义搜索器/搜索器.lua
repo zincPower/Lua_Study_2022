@@ -5,7 +5,7 @@
 ---
 
 print("--------------------------")
-print("package.searchers 搜索器：")
+print("package.searchers 内置的搜索器：")
 do
     --- 第一个是预加载搜索器
     --- 第二个是 Lua 搜索器
@@ -19,11 +19,13 @@ end
 print("--------------------------")
 print("设置搜索器：")
 do
-    local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+    -- 设置自定义搜索器
     package.searchers[#package.searchers + 1] = function(moduleName)
         print("moduleName: ", moduleName)
+        local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
         return loadfile(currentPath .. "被搜索器加载的文件.lua")
     end
+
     local module = require("不能存在的模块")
     print(module, module.name)
 
@@ -36,7 +38,7 @@ do
 end
 
 print("--------------------------")
-print("package.searchers 搜索器：")
+print("package.searchers 添加了自定义搜索器：")
 do
     for k, v in pairs(package.searchers) do
         print(k, "-->", v)

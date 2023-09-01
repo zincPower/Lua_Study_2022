@@ -21,4 +21,8 @@ local function showInfo()
 end
 man.showInfo = showInfo
 
+--- 第一种返回值的方式
 return man
+
+--- 第二种返回值的方式
+--package.loaded[...] = man
