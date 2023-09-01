@@ -3,28 +3,26 @@
 --- Created by jiangpengyong.
 --- DateTime: 2023/9/1 10:26
 ---
+---
+
+print("package.loaded 已经加载的模块：")
 
 -- 获取当前 lua 的文件夹路径
-local currentPath = debug.getinfo(1,"S").source:sub(2):match("(.*/)")
+local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+-- 设置加载模块路径
+package.path = package.path .. ";" .. currentPath .. "../?.lua"
 
-package.path = package.path .. ";"..currentPath.."../?.lua"
-local module = require("一个合理的模块")
-print(module.name)
-module.showInfo()
-
+require("一个合理的模块")
 require("module.sub")
 
-print("--------------------------")
-print("package.loaded 已经加载的模块：")
-do
-    for k, item in pairs(package.loaded) do
-        print(k, "包含的属性：")
-        if type(item) == "table" then
-            for key, value in pairs(item) do
-                print(key, "---", value)
-            end
-        else
-            print(key, "---", item)
+for path, package in pairs(package.loaded) do
+    print("----- 模块【" .. path .. "】包含的属性：-----")
+    if type(package) == "table" then
+        for key, value in pairs(package) do
+            print(key, "---", value)
         end
+    else
+        print(path, "---", package)
     end
+    print("--------------------------------")
 end
