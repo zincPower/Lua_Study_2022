@@ -85,9 +85,10 @@ do
         print("main age", age)
     end
 
-    --- local l, error = load(io.lines("/Users/jiangpengyong/Desktop/study/lua_study_2022/10 编译、执行和错误/编译/加载的文件.lua"))
+    local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
     --- 这样写会有问题，需要拆开
-    local lines = io.lines("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/10 编译、执行和错误/编译/加载的文件.lua", "L")
+    --local l, error = load(io.lines(currentPath .. "加载的文件.lua", "L"))
+    local lines = io.lines(currentPath .. "加载的文件.lua", "L")
     local l, error = load(lines)
     print(l, error)
     l()

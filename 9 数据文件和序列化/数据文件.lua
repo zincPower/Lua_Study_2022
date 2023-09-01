@@ -12,7 +12,8 @@ do
         count = count + 1
     end
     -- 内部会调用 entry
-    dofile("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/9 数据文件和序列化/data.txt")
+    local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+    dofile(currentPath .. "data.txt")
     print("number of entries: " .. count)
 end
 
@@ -24,7 +25,8 @@ do
         table.insert(authors, author)
     end
     -- 内部会调用 entry
-    dofile("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/9 数据文件和序列化/data.txt")
+    local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+    dofile(currentPath .. "data.txt")
     for key, author in pairs(authors) do
         print("key: ", key)
         for key, value in pairs(author) do

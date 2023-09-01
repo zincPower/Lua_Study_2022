@@ -4,4 +4,5 @@
 --- DateTime: 2023/8/20 22:32
 ---
 
-dofile("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/10 编译、执行和错误/编译/error 的文件.lua")
+local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+dofile(currentPath .. "error 的文件.lua")

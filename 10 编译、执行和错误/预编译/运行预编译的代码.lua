@@ -12,17 +12,19 @@ print("第二种：loadfile 运行预编译文件")
 do
     print("----------------------------")
     print("loadfile 加载：")
-    local fun, error = loadfile("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/10 编译、执行和错误/预编译/预编译的文件.lc", "b")
+
+    local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+    local fun, error = loadfile(currentPath .. "预编译的文件.lc", "b")
     print(fun, error)
     fun()
 
     print("----------------------------")
     print("dofile 加载：")
-    dofile("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/10 编译、执行和错误/预编译/预编译的文件.lc", "b")
+    dofile(currentPath .. "预编译的文件.lc", "b")
 
     print("----------------------------")
     print("load 加载：")
-    local lines = io.lines("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/10 编译、执行和错误/预编译/预编译的文件.lc", 1024)
+    local lines = io.lines(currentPath .. "预编译的文件.lc", 1024)
     local l = load(lines)
     l()
 end

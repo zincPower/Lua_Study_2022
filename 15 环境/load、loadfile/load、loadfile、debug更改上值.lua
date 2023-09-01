@@ -9,7 +9,8 @@ print("给 loadfile 传入上值，放置外部全局被改动：")
 do
     name = "江澎涌"
     local env = { print = print }
-    local l = loadfile("/Users/jiangpengyong/Desktop/study/lua_study_2022/15 环境/模块隔离/被加载的 config .lua", "t", env)
+    local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+    local l = loadfile(currentPath.."被加载的 config .lua", "t", env)
     l()
     print(env.width, env.height)
     print("外部全局 name ：", name)

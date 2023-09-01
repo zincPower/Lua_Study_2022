@@ -4,7 +4,8 @@
 --- DateTime: 2022/4/20 7:45 PM
 ---
 
-package.path = package.path .. ";/Users/jiangpengyong/Desktop/study/lua_study_2022/15 环境/模块隔离/?.lua"
+local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+package.path = package.path .. ";" .. currentPath .. "?.lua"
 local M = require("module")
 
 print("a", a)

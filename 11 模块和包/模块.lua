@@ -27,7 +27,8 @@ end
 print("--------------------------")
 print("package.searchpath: ")
 do
-    local path = "/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/11 模块和包/?.lua"
+    local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+    local path = currentPath .. "?.lua"
     print(package.searchpath("module!sub", path, "!", "@"))
     print(package.searchpath("module.sub", path))
     print(package.searchpath("模块", path))
@@ -36,7 +37,8 @@ end
 print("--------------------------")
 print("加载合理的模块：")
 do
-    package.path = package.path .. ";/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/11 模块和包/?.lua"
+    local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+    package.path = package.path .. ";" .. currentPath .. "?.lua"
     local module = require("一个合理的模块")
     print(module.name)
     module.showInfo()

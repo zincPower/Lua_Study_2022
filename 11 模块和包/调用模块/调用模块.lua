@@ -10,8 +10,9 @@ print("pwd:", os.execute("pwd"))
 
 print("------------------------")
 print("配置搜索路径")
+local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
 -- 在设置环境变量的时候，使用 ";;" 会被替换成默认路径
-package.path = package.path .. ";/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/11 模块和包/调用模块/?.lua"
+package.path = package.path .. ";" .. currentPath .. "?.lua"
 print("搜索路径：", package.path)
 
 print("------------------------")

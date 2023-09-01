@@ -4,8 +4,10 @@
 --- DateTime: 2022/4/10 17:00
 ---
 
+local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+
 --- 添加 strict 模块
-package.path = package.path .. ";/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/1 基础语法/?.lua"
+package.path = package.path .. ";" .. currentPath .. "?.lua"
 require "strict"
 
 name = "jiangpengyong"
@@ -13,4 +15,4 @@ print(name)
 
 --- age 没有进行声明初始化，则运行会报错
 --- age = nil
-print(age )
+print(age)

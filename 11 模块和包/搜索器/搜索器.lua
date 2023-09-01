@@ -19,9 +19,10 @@ end
 print("--------------------------")
 print("设置搜索器：")
 do
+    local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
     package.searchers[#package.searchers + 1] = function(moduleName)
         print("moduleName: ", moduleName)
-        return loadfile("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/11 模块和包/搜索器/被搜索器加载的文件.lua")
+        return loadfile(currentPath .. "被搜索器加载的文件.lua")
     end
     local module = require("不能存在的模块")
     print(module, module.name)

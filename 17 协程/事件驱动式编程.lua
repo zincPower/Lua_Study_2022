@@ -40,8 +40,9 @@ print("=====================================================")
 print("简单使用：")
 do
     local t = {}
-    local file = io.open("/Users/jiangpengyong/Desktop/study/lua_study_2022/17 协程/一件小事.txt")
-    local outputFile = io.output("/Users/jiangpengyong/Desktop/study/lua_study_2022/17 协程/一件小事——倒叙.txt")
+    local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+    local file = io.open(currentPath .. "一件小事.txt")
+    local outputFile = io.output(currentPath .. "一件小事——倒叙.txt")
     for line in file:lines() do
         t[#t + 1] = line
     end
@@ -55,8 +56,9 @@ cmdQueue = {}
 print("=====================================================")
 print("事件驱动：")
 do
-    local file = io.open("/Users/jiangpengyong/Desktop/study/lua_study_2022/17 协程/一件小事.txt")
-    local outputFile = io.output("/Users/jiangpengyong/Desktop/study/lua_study_2022/17 协程/一件小事——倒叙(事件驱动).txt")
+    local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+    local file = io.open(currentPath .. "一件小事.txt")
+    local outputFile = io.output(currentPath .. "一件小事——倒叙(事件驱动).txt")
     local i = 0
     local t = {}
     local function putLine()
@@ -117,8 +119,9 @@ do
 
     run(function()
         local t = {}
-        local file = io.open("/Users/jiangpengyong/Desktop/study/lua_study_2022/17 协程/一件小事.txt")
-        local outputFile = io.output("/Users/jiangpengyong/Desktop/study/lua_study_2022/17 协程/一件小事——倒叙(协程).txt")
+        local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+        local file = io.open(currentPath .. "一件小事.txt")
+        local outputFile = io.output(currentPath .. "一件小事——倒叙(协程).txt")
 
         while true do
             local line = getLine(file)

@@ -49,7 +49,8 @@ do
         end
     end
 
-    local file = io.open("/Users/jiangpengyong/Desktop/study/lua_study_2022/12 迭代器/演讲稿.txt", "r")
+    local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+    local file = io.open(currentPath .. "演讲稿.txt", "r")
     for item in allwords(file) do
         print(item)
     end

@@ -48,7 +48,7 @@ function translate(r, dx, dy)
     end
 end
 
-rootPath = "/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/4 闭包/"
+rootPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
 io.output(rootPath .. "plot.text")
 function plot(r, M, N)
     io.write("P1\n", M, " ", N, "\n")

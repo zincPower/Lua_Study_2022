@@ -36,7 +36,8 @@ do
         end
     end
 
-    local f = assert(loadfile("/Users/jiangpengyong/Desktop/study/lua_study_2022/18 反射/被加载的Lua.lua"))
+    local currentPath = debug.getinfo(1,"S").source:sub(2):match("(.*/)")
+    local f = assert(loadfile(currentPath.."被加载的Lua.lua"))
     debug.sethook(hook, "c")
     f()
     --f()

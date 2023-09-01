@@ -8,13 +8,13 @@ function foo()
     print("jiang pengyong")
 end
 
-local f = assert(loadfile("/Users/jiangpengyong/Desktop/code/Lua/lua_study_2022/反射/调优(统计调用次数).lua"))
--- 运行
+local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+local f = assert(loadfile(currentPath .. "调优(统计调用次数).lua"))
 f()
 debug.sethook(hook, "c")
 foo()
 debug.sethook()
 
-for func, count in pairs(Counters) do
-    print(getName(func), count)
-end
+--for func, count in pairs(Counters) do
+--    print(getName(func), count)
+--end

@@ -4,7 +4,8 @@
 --- DateTime: 2022/11/14 07:26
 ---
 
-package.path = package.path .. ";/Users/jiangpengyong/Desktop/study/lua_study_2022/13 元表、元方法/?.lua"
+local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+package.path = package.path .. ";" .. currentPath .. "?.lua"
 local Set = require("集合")
 
 print("-----------------------------")
