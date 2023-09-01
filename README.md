@@ -1,3 +1,10 @@
+> 目录<br/>
+> 零、持续更新中<br/>
+> 一、项目介绍<br/>
+> 二、已有文章目录<br/>
+> 三、推荐<br/>
+> 四、作者简介<br/>
+
 ## 零、持续更新中
 
 关注 "江澎涌" 公众号，第一时间获取最新文章
@@ -111,7 +118,31 @@
 
 代码：[传送门](https://github.com/zincPower/lua_study_2022/tree/master/10%20%E7%BC%96%E8%AF%91%E3%80%81%E6%89%A7%E8%A1%8C%E5%92%8C%E9%94%99%E8%AF%AF)
 
-## 三、作者简介
+## 三、推荐
+
+### 1、知识体系
+
+Android 高级 UI：https://github.com/zincPower/UI2018
+
+Android Gradle：https://github.com/zincPower/GradleStudy
+
+Lua：https://github.com/zincPower/lua_study_2022
+
+### 2、开源框架
+
+#### JRecycleView
+
+简介：简单的让RecycleView更有趣
+
+项目地址：https://github.com/zincPower/JRecycleView
+
+#### JPermission
+
+简介：Android（安卓）基于注解的6.0权限动态申请
+
+项目地址：https://github.com/zincPower/JPermission
+
+## 四、作者简介
 
 ### 1、个人博客
 掘金：https://juejin.im/user/5c3033ef51882524ec3a88ba/posts
