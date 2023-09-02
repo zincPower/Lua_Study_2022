@@ -16,11 +16,11 @@ do
             else
                 return i, v
             end
-        end
+        end, "不可变量", "控制变量"
     end
 
     local t = { 10, 20, 30, 40, 50 }
-    for i, v in values(t), "不可变量", "控制变量" do
+    for i, v in values(t) do
         print(i, "-----", v)
     end
 end
