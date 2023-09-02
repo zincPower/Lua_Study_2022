@@ -23,9 +23,9 @@ end
 function Set.union(a, b)
     local res = Set.new {}
     -- 检测元表是否是同一个
-    if getmetatable(a) ~= metatable or getmetatable(b) ~= metatable then
-        error("attempt to 'add' a set with a non-set value", 2)
-    end
+    --if getmetatable(a) ~= metatable or getmetatable(b) ~= metatable then
+    --    error("attempt to 'add' a set with a non-set value", 2)
+    --end
     for k in pairs(a) do
         res[k] = true
     end
@@ -53,8 +53,9 @@ function Set.tostring(set)
     return "{" .. table.concat(l, ", ") .. "}"
 end
 
+local __metatable = "not your business"
 -- 保护元表
---metatable.__metatable = "not your business"
+metatable.__metatable = __metatable
 
 -- 要放在 union 方法之后，否则 Lua 会在赋值的时候找不到 Set.union
 metatable.__add = Set.union

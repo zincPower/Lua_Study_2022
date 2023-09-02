@@ -37,8 +37,8 @@ print(s4 <= s5)
 print(s4 < s5)
 print(s4 >= s5)
 print(s4 > s5)
-print(s4 == s4 * s5)
--- 会直接返回 false ，而不会调用元方法
+print(s4 * s5)
+-- 会直接返回 false ，而不会调用元方法，因为类型不同
 print(s4 == 5)
 
 print("-----------------------------")

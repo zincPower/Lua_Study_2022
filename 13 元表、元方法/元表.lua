@@ -21,14 +21,18 @@ print("--------------------------")
 print("设置元表：")
 local oriTable = {}
 local metaTable = {}
-setmetatable(oriTable, metaTable)
+print(setmetatable(oriTable, metaTable), oriTable)
 print(getmetatable(oriTable), metaTable)
 
----- __metatable 设置
---t2 = { c = 1 }
---t2.__metatable = { a = 1 }
---s1 = {}
---setmetatable(s1, t2)
---print(getmetatable(s1)["a"])
----- cannot change a protected metatable
---print(setmetatable(s1, {}))
+print("--------------------------")
+print("设置带有 __metatable 字段元表：")
+-- __metatable 设置
+t3 = { a = 1 }
+t2 = { c = 1 }
+t2.__metatable = t3
+s1 = {}
+setmetatable(s1, t2)
+print('getmetatable(s1)["a"]', getmetatable(s1)["a"])
+print("获取元表", getmetatable(s1), t2, t3)
+-- 此处会抛出异常：cannot change a protected metatable
+print(setmetatable(s1, {}))
