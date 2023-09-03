@@ -8,9 +8,10 @@ print("=================================")
 print("全局变量：")
 print(_G, _G._G)
 
+print("_G.age", _G.age)
 age = 100
-print(age)
-print(_G.age)
+print("age", age)
+print("_G.age", _G.age)
 
 print("=================================")
 print("获取多级元素：")

@@ -10,7 +10,7 @@ do
     name = "江澎涌"
     local env = { print = print }
     local currentPath = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
-    local l = loadfile(currentPath.."被加载的 config .lua", "t", env)
+    local l = loadfile(currentPath .. "被加载的 config .lua", "t", env)
     l()
     print(env.width, env.height)
     print("外部全局 name ：", name)
@@ -43,22 +43,32 @@ print("====================================================")
 print("通过 debug.setupvalue 更改函数上值：")
 do
     age = "29"
-    height = 200
+    height = 1000
     local f = load("age = 20; return height;")
-    -- 更改 f 的上值
-    local env = { height = 20 }
-    debug.setupvalue(f, 1, env)
+    local env = { height = 50 }
 
+    print("未更改 f 的上值")
     print(f())
     print(env.age, env.height)
     print(age, height)
 
+    print("更改 f 的上值")
+    debug.setupvalue(f, 1, env)
+    print(f())
+    print(env.age, env.height)
+    print(age, height)
+end
+
+do
+    age = 29
     local changeAge = function()
-        age = 19
+        print(age)
     end
-    local env = { age = age }
-    debug.setupvalue(changeAge, 2, env)
+    print("未更改 changeAge 上值")
     changeAge()
-    print(age)
-    print(env.age)
+
+    print("更改 changeAge 上值")
+    local env = { age = 100, print = print }
+    debug.setupvalue(changeAge, 1, env)
+    changeAge()
 end
