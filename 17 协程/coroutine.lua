@@ -98,7 +98,11 @@ end
 print("==================================================")
 print("获取当前执行协程：")
 do
-    print(coroutine.running())
+    print("coroutine.running() 主协程", coroutine.running())
+    local co = coroutine.create(function()
+        print("coroutine.running()", coroutine.running())
+    end)
+    print(coroutine.resume(co))
 end
 
 print("==================================================")
