@@ -107,7 +107,7 @@
 
 ### 17、Lua 编译执行和错误处理
 
-博客：[Lua 编译执行和错误处理](https://mp.weixin.qq.com/s?__biz=Mzg2MzQ0MDA1OA==&mid=2247484240&idx=1&sn=bfb8a1b9302745755d4ce2b2a99dad70&chksm=ce79de85f90e5793d763b5fe35b76be34edadc35dc400cbe885643a6ed2607ebb1bcf0b4db88&token=1649541590&lang=zh_CN#rd)
+博客：[Lua 编译执行和错误处理](https://mp.weixin.qq.com/s?__biz=Mzg2MzQ0MDA1OA==&mid=2247484254&idx=1&sn=39dfd00b84d047a6fe3427855605a9eb&chksm=ce79de8bf90e579d4d7bf52f6d7c22e88128cd6ec83b8e66dd439ea7ffed13fede6228a6c23a&scene=178&cur_album_id=3071437744473948163#rd)
 
 代码：[传送门](https://github.com/zincPower/lua_study_2022/tree/master/10%20%E7%BC%96%E8%AF%91%E3%80%81%E6%89%A7%E8%A1%8C%E5%92%8C%E9%94%99%E8%AF%AF)
 
