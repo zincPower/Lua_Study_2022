@@ -1,15 +1,8 @@
 > 目录<br/>
-> 零、持续更新中<br/>
 > 一、项目介绍<br/>
 > 二、已有文章目录<br/>
 > 三、其他项目推荐<br/>
 > 四、作者简介<br/>
-
-## 零、持续更新中
-
-关注 "江澎涌" 公众号，第一时间获取最新文章
-
-![](https://github.com/zincPower/lua_study_2022/blob/master/img/公众号.png)
 
 ## 一、项目介绍
 
@@ -118,6 +111,54 @@
 
 代码：[传送门](https://github.com/zincPower/lua_study_2022/tree/master/10%20%E7%BC%96%E8%AF%91%E3%80%81%E6%89%A7%E8%A1%8C%E5%92%8C%E9%94%99%E8%AF%AF)
 
+### 18、Lua 迭代器
+
+博客：[Lua 迭代器](https://mp.weixin.qq.com/s?__biz=Mzg2MzQ0MDA1OA==&mid=2247484308&idx=1&sn=050823b45e2baccf55fd552790ad4432&chksm=ce79de41f90e575755356c1628d2888dc1d20bd2da3843767e81d11419e5f26201ee69cf4dbf&scene=178&cur_album_id=3071437744473948163#rd)
+
+代码：[传送门](https://github.com/zincPower/lua_study_2022/tree/master/12%20%E8%BF%AD%E4%BB%A3%E5%99%A8)
+
+### 19、Lua 模块与包
+
+博客：[Lua 模块与包](https://mp.weixin.qq.com/s?__biz=Mzg2MzQ0MDA1OA==&mid=2247484330&idx=1&sn=ae8078abc9d001931c9dd2a7b2b42474&chksm=ce79de7ff90e57691a41c0a1471d54f3be753a0eace39fbf8b663adf9373b6781eacde9f0907&scene=178&cur_album_id=3071437744473948163#rd)
+
+代码：[传送门](https://github.com/zincPower/lua_study_2022/tree/master/11%20%E6%A8%A1%E5%9D%97%E5%92%8C%E5%8C%85)
+
+### 20、Lua 元表和元方法
+
+博客：[Lua 元表和元方法](https://mp.weixin.qq.com/s?__biz=Mzg2MzQ0MDA1OA==&mid=2247484331&idx=1&sn=3be754e91f836432161f6f725d7f4ee6&chksm=ce79de7ef90e5768be1b455eb9ab612177e77e702084d1a4e4da66d99efa7cf197e2cdfd6e01&scene=178&cur_album_id=3071437744473948163#rd)
+
+代码：[传送门](https://github.com/zincPower/lua_study_2022/tree/master/13%20%E5%85%83%E8%A1%A8%E3%80%81%E5%85%83%E6%96%B9%E6%B3%95)
+
+### 21、Lua 面向对象
+
+博客：[Lua 面向对象](https://mp.weixin.qq.com/s?__biz=Mzg2MzQ0MDA1OA==&mid=2247484338&idx=1&sn=ad3b6dca54cd5e69b2979f2a69f9d4e9&chksm=ce79de67f90e5771ef56a3964713fd0b9c8209d5df648f398b2f10afd2214e44ac58a8f290d3&scene=178&cur_album_id=3071437744473948163#rd)
+
+代码：[传送门](https://github.com/zincPower/lua_study_2022/tree/master/14%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1)
+
+### 22、Lua 环境（_G 和 _ENV）
+
+博客：[Lua 环境（_G 和 _ENV）](https://mp.weixin.qq.com/s?__biz=Mzg2MzQ0MDA1OA==&mid=2247484339&idx=1&sn=baa8f48fbd09d024156e046d7e6a886d&chksm=ce79de66f90e5770d59795d2720c1721d16d2ec7d51fd45170ec9d24ef096bf2c756f0355732&scene=178&cur_album_id=3071437744473948163#rd)
+
+代码：[传送门](https://github.com/zincPower/lua_study_2022/tree/master/15%20%E7%8E%AF%E5%A2%83)
+
+### 23、Lua 垃圾回收机制
+
+博客：[Lua 垃圾回收机制](https://mp.weixin.qq.com/s?__biz=Mzg2MzQ0MDA1OA==&mid=2247484340&idx=1&sn=1bb7858264f799c6d35871637cd21240&chksm=ce79de61f90e5777190065f7e2fdcbb36b105c6d1f131500117a5a444e85ad5f1d3ff2454332&scene=178&cur_album_id=3071437744473948163#rd)
+
+代码：[传送门](https://github.com/zincPower/lua_study_2022/tree/master/16%20%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6)
+
+### 24、Lua 协程
+
+博客：[Lua 协程](https://mp.weixin.qq.com/s?__biz=Mzg2MzQ0MDA1OA==&mid=2247484347&idx=1&sn=d3b976be64c970e734a17b4dc720aa0e&chksm=ce79de6ef90e577852daea08c1b9631358e2622bb2f46437d5af8d0df344449660f5f6270669&scene=178&cur_album_id=3071437744473948163#rd)
+
+代码：[传送门](https://github.com/zincPower/lua_study_2022/tree/master/17%20%E5%8D%8F%E7%A8%8B)
+
+### 25、Lua 调试库（ debug ）
+
+博客：[Lua 调试库（ debug ）](https://mp.weixin.qq.com/s?__biz=Mzg2MzQ0MDA1OA==&mid=2247484348&idx=1&sn=81b1a2e5cb3798a51ad94488bfb3501e&chksm=ce79de69f90e577f767aee7e060ed606c4353e5d83c2c0e8f161440457f17354df878a6bfd31&scene=178&cur_album_id=3071437744473948163#rd)
+
+代码：[传送门](https://github.com/zincPower/lua_study_2022/tree/master/18%20%E8%B0%83%E8%AF%95%E5%BA%93)
+
 ## 三、其他项目推荐
 
 ### 1、知识体系
@@ -127,6 +168,8 @@ Android 高级 UI：https://github.com/zincPower/UI2018
 Android Gradle：https://github.com/zincPower/GradleStudy
 
 Lua：https://github.com/zincPower/lua_study_2022
+
+C++ 中使用 Lua：https://github.com/zincPower/Lua_CPP_2022
 
 ### 2、开源框架
 
